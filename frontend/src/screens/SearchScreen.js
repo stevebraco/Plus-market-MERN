@@ -18,7 +18,7 @@ const SearchScreen = () => {
     dispatch(searchProducts({ name: name !== 'all' ? name : '' }));
   }, [dispatch, name]);
   return (
-    <section className="product">
+    <section className="product container">
         <div className="row">
         {loading ? (
           <LoadingBox></LoadingBox>

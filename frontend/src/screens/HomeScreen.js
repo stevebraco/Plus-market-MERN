@@ -101,9 +101,7 @@ const HomeScreen = () => {
 
   return (
     <FadeIn>
-    <div className="big-container">
-      <div className='main-page'>
-        <section className="home">
+        <section className="home container">
           <div className="dp-flex home__container">
             <div className="home__figure">
               <img
@@ -127,12 +125,13 @@ const HomeScreen = () => {
           </div>
         </section>
         <section
-          className="banner-container">
+          className="banner-container container">
           <Banner heading="special Offer" text={"upto 45% off"} numberImg={1} />
           <Banner heading="limited Offer" text={"upto 50% off"} numberImg={2} />
         </section>
 
         <section className="category">
+          <div className="container">
           <h1 className="heading">
             shop by category
           </h1>
@@ -162,9 +161,10 @@ const HomeScreen = () => {
               numberImg={6}
             />
           </div>
+          </div>
         </section>
 
-        <section className="product">
+        <section className="product container">
           <h1 className="heading">
             latest products
           </h1>
@@ -181,7 +181,7 @@ const HomeScreen = () => {
           )}
         </section>
 
-        <section className="product">
+        <section className="product container">
           <h1 className="heading">
             best products
           </h1>
@@ -200,6 +200,7 @@ const HomeScreen = () => {
           )}
         </section>
         <section className='blog'>
+          <div className="container">
           <h2>Health Daily</h2>
         <div>
         {loadingBlogs ? (
@@ -216,12 +217,10 @@ const HomeScreen = () => {
           </div>
         )}
       </div>
-        </section>
       </div>
+        </section>
       
-      
-    </div>
-    </FadeIn>
+          </FadeIn>
   );
 };
 

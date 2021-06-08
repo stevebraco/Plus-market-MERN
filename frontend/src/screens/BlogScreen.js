@@ -23,7 +23,7 @@ const BlogScreen = () => {
   return (
     <FadeIn>
       <section className="blog">
-        <div>
+        <div className='container'>
           {loading ? (
             <LoadingBox></LoadingBox>
           ) : error ? (

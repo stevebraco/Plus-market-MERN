@@ -51,7 +51,7 @@ small {
 }
 
 section {
-    padding: 2rem 9%;
+    padding: 2rem 0;
   }
   
   input,
@@ -74,11 +74,15 @@ section {
     font-size: 1.3rem;
     padding-bottom: 0.5rem;
   }
-
-.main.active {
-  width: 89%;
-  transform: translatex(-7rem);
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
+// .main.active {
+//   width: 89%;
+//   transform: translatex(-7rem);
+// }
+
 
 //Comment Message
 .comment-message {
@@ -170,7 +174,8 @@ button {
 
 //img
 .img__small {
-  width: 70px;
+  max-width: 100%;
+  max-height: 70px;
 }
 .img__medium {
   width: 100%;
@@ -191,13 +196,7 @@ button {
 .big-container {
   display: flex;
 }
-.main-page {
-  position: relative;
-  width: 100%;
-}
-.main-page.active {
-  width: 80%;
-}
+
 
 .small-text-grey {
   color: #666;
@@ -221,15 +220,15 @@ button {
 }
 .cart-aside.active {
   transition: 0.5s;
-  max-width: 20%;
-  width: 20%;
+  max-width: 50%;
+  width: 50%;
   opacity: 1;
   visibility: visible;
 }
 //Cart item
 .cart-item {
-  width: 23rem;
-  max-width: 23rem;
+  width: 18rem;
+  max-width: 18rem;
   font-size: 1.1rem;
   padding: 0.2rem 0;
 
@@ -246,10 +245,14 @@ button {
 }
 .cart {
   &__container {
-    height: 38rem;
-    max-height: 38rem;
-    overflow: auto;
+    height: 20rem;
+    max-height: 20rem;
     padding: 0 0.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1rem;
+    align-items: flex-start;
   }
 
   &__total {
@@ -481,6 +484,7 @@ button {
     border-radius: 15px;
     overflow: hidden;
     padding: 5rem 7rem;
+    justify-content: space-around;
   }
 
   &__img {
