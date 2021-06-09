@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createBlog } from "../actions/blogActions";
-import marked from 'marked'
 import Axios from 'axios'
 import LoadingBox from "../components/LoadingBox";
 import FadeIn from "react-fade-in";
+import MDEditor from '@uiw/react-md-editor';
+
 
 
 
@@ -17,14 +18,12 @@ const BlogCreateScreen = () => {
     const [image, setImage] = useState('')
     const [text, setText] = useState('')
     const [category, setCategory] = useState('')
+    const [description, setDescription] = useState('')
     const [author, setAuthor] = useState(userInfo.name)
 
   
 
-    const renderText = (text) => {
-        const __html = marked(text, { sanitize: true })
-        return { __html }
-      }
+   
 
     const dispatch = useDispatch()
 
@@ -33,11 +32,12 @@ const BlogCreateScreen = () => {
       setImage('')
       setText('')
       setCategory('')
+      setDescription('')
     }
     
   const submitHandler = (e) => {
       e.preventDefault();
-      dispatch(createBlog(title, image, text, category, author ));
+      dispatch(createBlog(title, image, text, category, author, description ));
       clear()
   };
 
@@ -66,7 +66,8 @@ const BlogCreateScreen = () => {
   
   return (
     <FadeIn>
-      <form className="form" onSubmit={submitHandler}>
+      <section className="container">
+      <form  onSubmit={submitHandler}>
         <div>
           <h1 className="heading">create article</h1>
         </div>
@@ -104,18 +105,7 @@ const BlogCreateScreen = () => {
                 <p>{errorUpload}</p>
               )}
             </div>
-        <div className="form__group">
-          <label htmlFor="text">text</label>
-          <textarea
-            type="text"
-            value={text}
-            placeholder="Enter Title"
-            id="text"
-            required
-            onChange={(e) => setText(e.target.value)}
-          />
-        </div>
-        <div className="form__group">
+            <div className="form__group">
           <label htmlFor="category">category</label>
           <input
             type="text"
@@ -127,6 +117,18 @@ const BlogCreateScreen = () => {
           />
         </div>
         <div className="form__group">
+          <label htmlFor="description">description</label>
+          <input
+            type="text"
+            placeholder="Enter description"
+            id="description"
+            value={description}
+            required
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        
+        <div className="form__group">
           <input
             type="hidden"
             placeholder="Enter Author"
@@ -136,16 +138,18 @@ const BlogCreateScreen = () => {
             onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
+        <div className="form__group">
+      <MDEditor
+        value={text}
+        onChange={setText}
+      />
+        </div>
+        
         <button className="btn" type="submit">
                 create article
               </button>
       </form>
-      <section className='container'>
-          <div>
-              <h1>{title}</h1>
-
-      <div className='rendertext' dangerouslySetInnerHTML={renderText(text)} />
-      </div>
+          
       </section>
 
     </FadeIn>

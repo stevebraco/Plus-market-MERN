@@ -47,11 +47,6 @@ html {
   scroll-padding-top: 6.5rem;
 }
 
-* {
-  transition: all 0.2s linear;
-  text-transform: capitalize;
-}
-
 body {
   font-family: "Roboto", sans-serif;
 }
@@ -65,6 +60,7 @@ h6 {
   font-weight: bold;
   padding-bottom: 0.5rem;
   color: #212121;
+  text-transform: capitalize;
 }
 
 h1 {
@@ -138,11 +134,16 @@ input {
 label {
   font-size: 1.3rem;
   padding-bottom: 0.5rem;
+  text-transform: capitalize;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.txt-cap {
+  text-transform: capitalize;
 }
 
 .comment-message {
@@ -188,23 +189,6 @@ label {
   background-color: #eeffe0;
 }
 
-.rendertext p,
-.rendertext li {
-  font-size: 2.1rem;
-  line-height: 2.8rem;
-  text-transform: initial;
-  font-weight: 300;
-  color: #4b4a4a;
-}
-
-.intro--rendertext h1,
-.intro--rendertext h2,
-.intro--rendertext h3,
-.intro--rendertext h3 {
-  font-size: 1.5rem;
-  font-weight: normal;
-}
-
 button {
   cursor: pointer;
   border: none;
@@ -224,8 +208,9 @@ button {
 }
 
 .badge {
-  background-color: #ff8802;
+  background-color: #469160;
   color: #ffff;
+  font-weight: bold;
   border-radius: 50%;
   padding: 0.4rem 0.7rem 0.4rem 0.4rem;
   font-size: 1.4rem;
@@ -291,6 +276,7 @@ button {
   max-width: 18rem;
   font-size: 1.1rem;
   padding: 0.2rem 0;
+  margin-right: 2rem;
 }
 .cart-item__qty, .cart-item__price {
   color: #212121;
@@ -307,8 +293,6 @@ button {
   padding: 0 0.2rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 1rem;
   align-items: flex-start;
 }
 .cart__total {
@@ -343,13 +327,18 @@ button {
   background: #212121;
   color: #fff;
   font-weight: bold;
-  padding: 1.5rem 3rem;
-  font-size: 1.2rem;
-  text-align: center;
+  padding: 1.5rem 4rem;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  border-radius: 1rem;
   cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.5s;
 }
 .btn:hover {
-  background: #ff8802;
+  color: #212121;
+  background: transparent;
+  border: 1px solid #212121;
 }
 
 .fa-chevron-down {
@@ -369,6 +358,7 @@ button {
   padding: 1rem;
   color: #212121;
   font-size: 1.5rem;
+  transition: 0.5s;
 }
 .link-register:hover {
   color: #ff8802;
@@ -425,6 +415,9 @@ button {
   background: #ffff;
   padding: 2rem 9%;
 }
+.header__logo {
+  transition: 0.5s;
+}
 .header__logo:hover {
   transform: scale(1.03);
 }
@@ -457,6 +450,7 @@ button {
 .navbar__drop-down {
   transition: 0.5s;
   position: relative;
+  transition: 0.5s;
 }
 .navbar__drop-down-content {
   visibility: hidden;
@@ -473,6 +467,7 @@ button {
   max-width: 25rem;
   border-radius: 0.5rem;
   box-shadow: 0px 10px 24px 6px #474646;
+  transition: 0.5s;
 }
 .navbar__drop-down-content .navbar__link:hover {
   background: #ff8802;
@@ -487,22 +482,30 @@ button {
   font-size: 1.5rem;
   color: #666;
   text-transform: capitalize;
+  transition: 0.5s;
 }
 .navbar__link:hover {
   color: #212121;
 }
 .navbar__icon {
-  font-size: 3rem;
-  color: #bdbdbd;
+  font-size: 2rem;
+  color: #666;
   cursor: pointer;
+  transition: 0.5s;
 }
 .navbar__icon:hover {
-  color: #ff8802;
+  opacity: 0.4;
 }
 .navbar__icons {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+}
+
+.MuiAvatar-colorDefault {
+  width: 30px !important;
+  height: 30px !important;
+  background: #666 !important;
 }
 
 #menu-bar {
@@ -559,6 +562,7 @@ button {
   height: 100%;
   width: 100%;
   object-fit: cover;
+  transition: 0.5s;
 }
 .banner__content {
   position: absolute;
@@ -595,6 +599,7 @@ button {
   flex: 1 1 25rem;
   box-shadow: 0 0 35px 0px #fafafa;
   overflow: hidden;
+  transition: 0.5s;
 }
 .box:hover {
   border: 0.1px solid black;
@@ -624,6 +629,7 @@ button {
 .product .box-container {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  transition: 0.5s;
 }
 .product__box {
   position: relative;
@@ -632,6 +638,7 @@ button {
   padding: 2rem;
   border-radius: 20px;
   border-bottom: 1px solid #fffefe;
+  transition: 0.5s;
 }
 .product__box:hover {
   border: 0.1px solid black;
@@ -659,6 +666,7 @@ button {
   margin-top: 0.7rem;
   border-radius: 50%;
   transition: 0.1s;
+  transition: 0.5s;
 }
 .product__link:hover {
   color: red;
@@ -746,6 +754,7 @@ button {
   max-width: 30rem;
   border-radius: 20px;
   padding: 1rem;
+  transition: 0.5s;
 }
 .blog__card:hover {
   background: #d6d6d6;
@@ -788,16 +797,19 @@ button {
   max-width: 35%;
   padding: 0 2rem;
 }
-.blog-article__rendertext p {
-  margin: 1rem 0;
+.blog-article__heading {
+  padding-top: 1rem;
 }
-.blog-article__rendertext p,
-.blog-article__rendertext li {
-  font-size: 2rem;
-  line-height: 2.8rem;
-  text-transform: initial;
-  font-weight: 300;
-  color: #4b4a4a;
+.blog-article__text h1, .blog-article__text h2, .blog-article__text h3, .blog-article__text h4, .blog-article__text h5, .blog-article__text h6 {
+  border: none !important;
+}
+.blog-article__text p, .blog-article__text ul, .blog-article__text li {
+  font-size: 1.7rem;
+  letter-spacing: 0.3px;
+  color: #666;
+}
+.blog-article__text p {
+  line-height: 3rem;
 }
 
 .comment__container {

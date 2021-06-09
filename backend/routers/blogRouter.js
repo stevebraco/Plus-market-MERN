@@ -44,6 +44,7 @@ blogRouter.post("/createblog", async (req, res) => {
     image: req.body.image,
     text: req.body.text,
     category: req.body.category,
+    description: req.body.description,
     author: req.body.author,
   });
   try {
@@ -53,6 +54,7 @@ blogRouter.post("/createblog", async (req, res) => {
       title: createdBlog.title,
       image: req.body.image,
       text: req.body.text,
+      description: req.body.description,
       category: req.body.category,
       author: req.body.author,
     });
@@ -97,6 +99,7 @@ blogRouter.put('/:id', isAuth, isAdmin, async(req, res) => {
     blog.text = req.body.text,
     blog.category = req.body.category,
     blog.author = req.body.author;
+    blog.description = req.body.description;
     const updatedBlog = await blog.save();
     res.send({ message: "Article Updated", blog: updatedBlog});
     } else {

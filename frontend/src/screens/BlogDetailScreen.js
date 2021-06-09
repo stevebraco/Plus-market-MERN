@@ -14,6 +14,7 @@ const BlogDetailScreen = (props) => {
   const blogId = props.match.params.id;
   const [listComments, setListComments] = useState([]);
   const [message, setMessage] = useState(false)
+  const [filterBlog, setFilterBlog] = useState([])
 
   const dispatch = useDispatch();
 
@@ -42,6 +43,7 @@ const BlogDetailScreen = (props) => {
     } else alert("Please enter comment");
   };
 
+  
   useEffect(() => {
     dispatch(listBlogs());
     if (!blog || blog._id !== blogId) {
@@ -60,9 +62,16 @@ const BlogDetailScreen = (props) => {
 
     if (blog) {
       setListComments(blog.comments);
+      const clients = blogs.slice()
+      const index = clients.findIndex((client) => {return client._id === blogId})
+      clients.splice(index, 1)
+      setFilterBlog(clients)
     }
-  }, [dispatch, blog, blogId, successCommentCreate]);
 
+   
+    
+  }, [dispatch, blog, blogId, successCommentCreate]);
+  
   return (
     <FadeIn>
       <section className="blog-article container">
@@ -141,7 +150,7 @@ const BlogDetailScreen = (props) => {
               <p> {errorList} </p>
             ) : (
               <div className="blog-article__container">
-                {blogs.slice(0, 5).map((blog) => (
+                {filterBlog.slice(0, 5).map((blog) => (
                   <BlogCardScreen key={blog._id} blog={blog} />
                 ))}
               </div>

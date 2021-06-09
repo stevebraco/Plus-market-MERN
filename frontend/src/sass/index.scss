@@ -13,6 +13,7 @@ h6 {
   font-weight: bold;
   padding-bottom: 0.5rem;
   color: #212121;
+  text-transform: capitalize;
 }
 h1 {
   font-size: 3.5rem;
@@ -73,15 +74,16 @@ section {
   label {
     font-size: 1.3rem;
     padding-bottom: 0.5rem;
+    text-transform: capitalize;
   }
 .container {
   max-width: 1200px;
   margin: 0 auto;
 }
-// .main.active {
-//   width: 89%;
-//   transform: translatex(-7rem);
-// }
+
+.txt-cap{
+  text-transform: capitalize;
+}
 
 
 //Comment Message
@@ -123,24 +125,7 @@ section {
   background-color: #eeffe0;
 }
 
-//Render
-.rendertext {
-  p,
-  li {
-    font-size: 2.1rem;
-    line-height: 2.8rem;
-    text-transform: initial;
-    font-weight: 300;
-    color: rgb(75, 74, 74);
-  }
-}
-.intro--rendertext h1,
-.intro--rendertext h2,
-.intro--rendertext h3,
-.intro--rendertext h3 {
-  font-size: 1.5rem;
-  font-weight: normal;
-}
+
 
 //BUTTON
 button {
@@ -164,8 +149,9 @@ button {
 
 //badge
 .badge {
-  background-color: #ff8802;
+  background-color: #469160;
   color: #ffff;
+  font-weight: bold;
   border-radius: 50%;
   padding: 0.4rem 0.7rem 0.4rem 0.4rem;
   font-size: 1.4rem;
@@ -231,6 +217,7 @@ button {
   max-width: 18rem;
   font-size: 1.1rem;
   padding: 0.2rem 0;
+  margin-right: 2rem;
 
   &__qty,
   &__price {
@@ -250,8 +237,6 @@ button {
     padding: 0 0.2rem;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 1rem;
     align-items: flex-start;
   }
 
@@ -288,13 +273,19 @@ button {
   background: #212121;
   color: #fff;
   font-weight: bold;
-  padding: 1.5rem 3rem;
-  font-size: 1.2rem;
-  text-align: center;
+  padding: 1.5rem 4rem;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  border-radius: 1rem;
   cursor: pointer;
+  border: 1px solid transparent;
+  transition: .5s;
+
 
   &:hover {
-    background: #ff8802;
+    color: #212121;
+    background: transparent;
+    border: 1px solid #212121;
   }
 }
 //FONT AWESOME
@@ -314,6 +305,7 @@ button {
   padding: 1rem;
   color: #212121;
   font-size: 1.5rem;
+  transition: .5s;
   &:hover {
     color: #ff8802;
   }
@@ -374,6 +366,7 @@ button {
     padding: 2rem 9%;
   }
   &__logo {
+  transition: .5s;
     &:hover {
       transform: scale(1.03);
     }
@@ -408,6 +401,7 @@ button {
   &__drop-down {
     transition: 0.5s;
     position: relative;
+  transition: .5s;
   }
 
   &__drop-down-content {
@@ -425,6 +419,7 @@ button {
     max-width: 25rem;
     border-radius: 0.5rem;
     box-shadow: 0px 10px 24px 6px rgb(71, 70, 70);
+    transition: .5s;
 
     & .navbar__link:hover {
       background: #ff8802;
@@ -442,6 +437,7 @@ button {
     font-size: 1.5rem;
     color: #666;
     text-transform: capitalize;
+  transition: .5s;
 
     &:hover {
       color: #212121;
@@ -449,12 +445,14 @@ button {
   }
 
   &__icon {
-    font-size: 3rem;
-    color: #bdbdbd;
+    font-size: 2rem;
+    color: #666;
     cursor: pointer;
+  transition: .5s;
+
 
     &:hover {
-      color: #ff8802;
+      opacity: .4;
     }
   }
 
@@ -463,6 +461,11 @@ button {
     align-items: center;
     gap: 1.5rem;
   }
+}
+.MuiAvatar-colorDefault {
+  width: 30px !important;
+  height: 30px !important;
+  background: #666 !important;
 }
 
 #menu-bar {
@@ -521,10 +524,13 @@ button {
   border-radius: 15px;
   box-shadow: 0 0 35px 20px lightgrey;
 
+
   &__img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+  transition: .5s;
+
   }
 
   &__content {
@@ -569,6 +575,7 @@ button {
   flex: 1 1 25rem;
   box-shadow: 0 0 35px 0px rgb(250, 250, 250);
   overflow: hidden;
+  transition: .5s;
 
   &:hover {
     border: 0.1px solid black;
@@ -606,6 +613,8 @@ button {
     // gap: 1.5rem
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  transition: .5s;
+
   }
 
   &__box {
@@ -615,6 +624,7 @@ button {
     padding: 2rem;
     border-radius: 20px;
     border-bottom: 1px solid rgb(255, 254, 254);
+    transition: .5s;
 
     &:hover {
       border: 0.1px solid black;
@@ -647,6 +657,8 @@ button {
     margin-top: 0.7rem;
     border-radius: 50%;
     transition: 0.1s;
+  transition: .5s;
+
     &:hover {
       color: red;
     }
@@ -745,6 +757,8 @@ button {
     max-width: 30rem;
     border-radius: 20px;
     padding: 1rem;
+  transition: .5s;
+
     &:hover {
       background: rgb(214, 214, 214);
     }
@@ -791,19 +805,22 @@ button {
     max-width: 35%;
     padding: 0 2rem;
   }
-  &__rendertext {
-    p {
-      margin: 1rem 0;
-    }
-    p,
-    li {
-      font-size: 2rem;
-      line-height: 2.8rem;
-      text-transform: initial;
-      font-weight: 300;
-      color: rgb(75, 74, 74);
-    }
+  &__heading {
+    padding-top: 1rem;
   }
+  &__text {
+    h1, h2, h3, h4, h5, h6 {
+      border: none !important;
+    }
+      p, ul, li {
+        font-size: 1.7rem;
+        letter-spacing: .3px;
+        color: #666;
+    }  
+    p {
+      line-height: 3rem;
+    }
+}
 }
 
 //comment

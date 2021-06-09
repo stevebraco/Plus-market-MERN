@@ -1,20 +1,14 @@
 import React from 'react'
-import marked from "marked";
+import MDEditor from '@uiw/react-md-editor';
 
 
 const BlogArticle = ({blog}) => {
-    const renderText = (text) => {
-        const __html = marked(text, { sanitize: true });
-        return { __html };
-      };
+    // 
     return (
         <div>
         <img src={blog.image} />
-        <h1> {blog.title} </h1>
-        <div
-          className="blog-article__rendertext"
-          dangerouslySetInnerHTML={renderText(blog.text)}
-        />
+        <h1 className='blog-article__heading'> {blog.title} </h1>
+        <MDEditor.Markdown className='blog-article__text' source={blog.text} />
       </div>
     )
 }

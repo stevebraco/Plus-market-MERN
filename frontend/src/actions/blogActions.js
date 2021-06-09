@@ -43,10 +43,10 @@ export const detailsBlog = (blogId) => async (dispatch) => {
   }
 };
 
-export const createBlog = (title, image, text, category, author) => async (dispatch) => {
+export const createBlog = (title, image, text, category, author, description) => async (dispatch) => {
     dispatch({
       type: BLOG_CREATE_REQUEST,
-      payload: { title, image, text, category, author },
+      payload: { title, image, text, category, author, description },
     });
     try {
       const { data } = await Axios.post("/api/blogs/createblog", {
@@ -55,6 +55,7 @@ export const createBlog = (title, image, text, category, author) => async (dispa
         text,
         category,
         author,
+        description,
       });
       dispatch({ type: BLOG_CREATE_SUCCESS, payload: data });
     } catch (error) {

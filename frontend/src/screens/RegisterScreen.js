@@ -43,13 +43,14 @@ const RegisterScreen = (props) => {
         {loading && <LoadingBox></LoadingBox>}
         {error && <p> {error} </p>}
         <div className="form__group">
-          <label htmlFor="name">full name</label>
+          <label htmlFor="name">full full name</label>
           <input
             type="text"
             placeholder="Enter Name"
             id="name"
             required
             onChange={(e) => setName(e.target.value)}
+            autoFocus
           />
         </div>
         <div className="form__group">

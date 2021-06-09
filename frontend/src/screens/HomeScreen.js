@@ -22,7 +22,6 @@ import {
   CART_TOGGLE_OPEN,
 } from "../constants/cartConstants";
 import { listBlogs } from "../actions/blogActions";
-import marked from 'marked'
 import BlogCardScreen from "./BlogCardScreen";
 
 
@@ -93,10 +92,7 @@ const HomeScreen = () => {
     dispatch({ type: CART_TOGGLE_CLOSE });
   };
 
-  const renderText = (text) => {
-    const __html = marked(text, { sanitize: true })
-    return { __html }
-  }
+  
   console.log(toggle);
 
   return (

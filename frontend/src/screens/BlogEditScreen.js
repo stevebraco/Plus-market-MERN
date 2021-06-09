@@ -4,6 +4,7 @@ import { detailsBlog, updateBlog } from "../actions/blogActions";
 import Axios from 'axios'
 import LoadingBox from "../components/LoadingBox";
 import { BLOG_UPDATE_RESET } from "../constants/blogConstants";
+import MDEditor from '@uiw/react-md-editor';
 import FadeIn from "react-fade-in";
 
 
@@ -15,6 +16,7 @@ const BlogEditScreen = (props) => {
   const [text, setText] = useState("");
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
 
   const dispatch = useDispatch();
 
@@ -42,6 +44,7 @@ const BlogEditScreen = (props) => {
       setText(blog.text);
       setCategory(blog.category);
       setAuthor(blog.author);
+      setDescription(blog.description);
     }
   }, [dispatch, blog, blogId, successUpdate, props.history]);
 
@@ -83,6 +86,7 @@ const BlogEditScreen = (props) => {
         text,
         category,
         author,
+        description,
       })
     );
   };
@@ -90,7 +94,8 @@ const BlogEditScreen = (props) => {
 
   return (
     <FadeIn>
-      <form className="form" onSubmit={submitHandler}>
+      <section className='container'>
+      <form  onSubmit={submitHandler}>
         <div>
           <h1 className="heading">update article</h1>
         </div>
@@ -108,7 +113,7 @@ const BlogEditScreen = (props) => {
             type="text"
             placeholder="Enter Title"
             id="title"
-            value={title || ""}
+            value={title}
             required
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -119,7 +124,7 @@ const BlogEditScreen = (props) => {
             id="image"
             type="text"
             placeholder="Enter image"
-            value={image || ""}
+            value={image}
             onChange={(e) => setImage(e.target.value)}
           ></input>
         </div>
@@ -135,23 +140,12 @@ const BlogEditScreen = (props) => {
           {error && <p>{error}</p>}
         </div>
         <div className="form__group">
-          <label htmlFor="text">text</label>
-          <textarea
-            type="text"
-            value={text || ""}
-            placeholder="Enter Title"
-            id="text"
-            required
-            onChange={(e) => setText(e.target.value)}
-          />
-        </div>
-        <div className="form__group">
           <label htmlFor="category">category</label>
           <input
             type="text"
             placeholder="Enter category"
             id="category"
-            value={category || ""}
+            value={category}
             required
             onChange={(e) => setCategory(e.target.value)}
           />
@@ -162,18 +156,37 @@ const BlogEditScreen = (props) => {
             disabled
             type="text"
             placeholder="Enter Author"
-            value={author || ""}
+            value={author}
             id="author"
             required
             onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
+        <div className="form__group">
+          <label htmlFor="description">description</label>
+          <input
+            type="text"
+            placeholder="Enter description"
+            id="description"
+            value={description}
+            required
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className="form__group">
+      <MDEditor
+        value={text}
+        onChange={setText}
+      />
+        </div>
+        
         <button className="btn" type="submit">
           update article
         </button>
         </>
             )}
       </form>
+      </section>
     </FadeIn>
   );
 };

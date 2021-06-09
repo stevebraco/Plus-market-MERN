@@ -32,7 +32,7 @@ const ProductAllScreen = () => {
   };
      return (
        <FadeIn>
-       <section className="product">
+       <section className="product container">
           <h1 className="heading">
            all products
           </h1>

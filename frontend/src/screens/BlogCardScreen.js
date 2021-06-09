@@ -1,14 +1,10 @@
 import React from "react";
 import moment from "moment";
-import marked from "marked";
 import { Link } from "react-router-dom";
 import FadeIn from "react-fade-in";
+import MDEditor from "@uiw/react-md-editor";
 
 const BlogCardScreen = ({ blog }) => {
-  const renderText = (text) => {
-    const __html = marked(text, { sanitize: true });
-    return { __html };
-  };
   return (
     <FadeIn>
       <div className="blog__card">
@@ -26,12 +22,8 @@ const BlogCardScreen = ({ blog }) => {
         <Link to={`/blog/${blog._id}`}>
           <h4> {blog.title} </h4>
         </Link>
-        <div
-          className="rendertext blog__rendertext"
-          dangerouslySetInnerHTML={renderText(
-            `${blog.text.substring(0, 70)}...`
-          )}
-        />
+        <MDEditor.Markdown source={`${blog.description.substring(0, 70)} ...`} />
+
         <p className="small-text-grey">by {blog.author} </p>
       </div>
     </FadeIn>

@@ -42,6 +42,7 @@ const SigninScreen = (props) => {
             id="email"
             required
             onChange={(e) => setEmail(e.target.value)}
+            autoFocus
           />
         </div>
         <div className="form__group">
