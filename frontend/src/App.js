@@ -30,7 +30,6 @@ import CartItems from "./components/CartItems";
 
 function App() {
   const [click, setClick] = useState(false);
-  const [fixed, setFixed] = useState(false);
 
   const handleClick = () => setClick(!click);
   const dispatch = useDispatch();
@@ -53,15 +52,7 @@ function App() {
     categories,
   } = productCategoryList;
 
-  window.addEventListener ('scroll', () => { 
-    setClick(false);
-
-    if (window.scrollY > 150) {
-      setFixed(true);
-    } else {
-      setFixed(false);
-    }
-  });
+  
 
   useEffect(() => {
     dispatch(listProductCategories());
@@ -106,7 +97,7 @@ function App() {
             ></Route>
             </div>
         </div>
-        <div className={fixed ? "navbar active dp-flex" : "navbar dp-flex"}>
+        <div className="navbar dp-flex">
           <div id="menu-bar" onClick={handleClick}>
             <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
           </div>

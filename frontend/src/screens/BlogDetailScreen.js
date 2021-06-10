@@ -62,10 +62,10 @@ const BlogDetailScreen = (props) => {
 
     if (blog) {
       setListComments(blog.comments);
-      const clients = blogs.slice()
-      const index = clients.findIndex((client) => {return client._id === blogId})
-      clients.splice(index, 1)
-      setFilterBlog(clients)
+      // const clients = blogs.slice()
+      // const index = clients.findIndex((client) => {return client._id === blogId})
+      // clients.splice(index, 1)
+      // setFilterBlog(clients)
     }
 
    
@@ -150,7 +150,7 @@ const BlogDetailScreen = (props) => {
               <p> {errorList} </p>
             ) : (
               <div className="blog-article__container">
-                {filterBlog.slice(0, 5).map((blog) => (
+                {blogs.slice(0, 5).map((blog) => (
                   <BlogCardScreen key={blog._id} blog={blog} />
                 ))}
               </div>

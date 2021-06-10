@@ -1,7 +1,11 @@
 @import "./minireset.scss";
 @import "./variable.scss";
+html {
+  height: 100%;
 
+}
 body {
+  height: 100%;
   font-family: $fonts;
 }
 h1,
@@ -77,8 +81,10 @@ section {
     text-transform: capitalize;
   }
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .txt-cap{
@@ -135,7 +141,7 @@ button {
 }
 .add-to-cart {
   font-size: 3rem;
-  color: #ff8802;
+  color: #ea5e4c;
 
   &:hover {
     opacity: 0.5;
@@ -243,7 +249,7 @@ button {
   &__total {
     margin-top: 2rem;
     font-size: 1.4rem;
-    color: #ff8802;
+    color: #ea5e4c;
     display: block;
     text-align: right;
   }
@@ -254,7 +260,7 @@ button {
   font-size: 2rem;
 
   span {
-    color: #ff8802;
+    color: #ea5e4c;
   }
 }
 
@@ -298,7 +304,7 @@ button {
   color: #666;
   font-size: 1.1rem;
   &:hover {
-    color: #ff8802;
+    color: #ea5e4c;
   }
 }
 .link-register {
@@ -307,7 +313,7 @@ button {
   font-size: 1.5rem;
   transition: .5s;
   &:hover {
-    color: #ff8802;
+    color: #ea5e4c;
   }
 }
 
@@ -361,6 +367,7 @@ button {
 
 //HEADER
 .header {
+  
   &__hero {
     background: #ffff;
     padding: 2rem 9%;
@@ -380,26 +387,20 @@ button {
   display: block;
   width: 10px;
   height: 10px;
-  background: #ff8802;
+  background: #ea5e4c;
   border-radius: 50%;
 }
 
 //NAVBAR
-.navbar.active {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
 .navbar {
   background: #fff;
   padding: 2rem 9%;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1000;
+  font-weight: 500;
 
   &__drop-down {
-    transition: 0.5s;
     position: relative;
   transition: .5s;
   }
@@ -408,28 +409,34 @@ button {
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    top: 32px;
-    right: -8rem;
+    top: 25px;
+    right: -10rem;
     z-index: 5;
     background: #faf8f8;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    padding: 2rem;
     width: 25rem;
     max-width: 25rem;
     border-radius: 0.5rem;
     box-shadow: 0px 10px 24px 6px rgb(71, 70, 70);
-    transition: .5s;
-
+    & .navbar__link {
+      transition: background .5s;
+      border-radius: 1rem;
+    }
     & .navbar__link:hover {
-      background: #ff8802;
-      color: $black;
+      background: #ea5f4c25;
+      color: #ea5e4c;
     }
   }
 
   &__drop-down:hover &__drop-down-content {
     visibility: visible;
     opacity: 1;
+  transition: .5s;
+
+
   }
 
   &__link {
@@ -437,7 +444,6 @@ button {
     font-size: 1.5rem;
     color: #666;
     text-transform: capitalize;
-  transition: .5s;
 
     &:hover {
       color: #212121;
@@ -483,15 +489,29 @@ button {
   flex-wrap: wrap;
 
   &__container {
-    background: #ff8802;
+    position: relative;
     border-radius: 15px;
-    overflow: hidden;
     padding: 5rem 7rem;
-    justify-content: space-around;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.329);
+    &:hover .home__figure {
+      transform: scale(1.1);
+    }
+  }
+  &__content {
+    z-index: 1;
   }
 
-  &__img {
-    width: 100%;
+  &__figure {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    transition: .5s;
+
+
   }
 
   &__fresh {
@@ -784,7 +804,7 @@ button {
   }
   &__category {
     text-transform: uppercase;
-    color: #ff8802;
+    color: #ea5e4c;
     font-size: 1.4rem;
   }
   &__date {

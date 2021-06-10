@@ -24,7 +24,6 @@ import {
 import { listBlogs } from "../actions/blogActions";
 import BlogCardScreen from "./BlogCardScreen";
 
-
 const HomeScreen = () => {
   const [qty, setQty] = useState(2);
   const [click, setClick] = useState(false);
@@ -69,6 +68,32 @@ const HomeScreen = () => {
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: false
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
 
   const addToCartHandler = (item) => {
@@ -98,14 +123,8 @@ const HomeScreen = () => {
   return (
     <FadeIn>
         <section className="home container">
-          <div className="dp-flex home__container">
-            <div className="home__figure">
-              <img
-                className="home__img"
-                src="./images/juicecarton1.png"
-                alt="légume"
-              />
-            </div>
+          <div
+           className="home__container">
             <div className="home__content">
               <h3 className="home__heading">
                 active summer with juice milk 300ml
@@ -118,6 +137,14 @@ const HomeScreen = () => {
                 shop now
               </Link>
             </div>
+            <div className="home__figure">
+              <img
+                className="home__img"
+                src="./images/plats-salad.jpeg"
+                alt="légume"
+              />
+            </div>
+            
           </div>
         </section>
         <section
