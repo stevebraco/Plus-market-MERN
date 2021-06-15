@@ -112,4 +112,21 @@ blogRouter.put('/:id', isAuth, isAdmin, async(req, res) => {
   }
 })
 
+//delete 
+blogRouter.delete('/:id', isAuth, isAdmin, async(req, res) => {
+  const blog = await Blog.findById(req.params.id);
+  try {
+    if(blog) {
+      const deleteBlog = await blog.remove();
+      res.send({ message : 'Blog Deleted', blog: deleteBlog })
+    } else {
+      res.status(404).send({ message: 'Blog Not Found' })
+    }
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+    
+  }
+  
+})
+
 export default blogRouter;

@@ -8,18 +8,20 @@ import FadeIn from "react-fade-in";
 import BlogCardScreen from "./BlogCardScreen";
 
 const BlogScreen = () => {
-  const blogList = useSelector((state) => state.blogList);
-  const { loading, blogs, error } = blogList;
   const dispatch = useDispatch();
 
- 
+  const blogList = useSelector((state) => state.blogList);
+  const { loading, blogs, error } = blogList;
+
+  
+
   useEffect(() => {
     dispatch(listBlogs());
   }, [dispatch]);
   return (
     <FadeIn>
       <section className="blog">
-        <div className='container'>
+        <div className="container">
           {loading ? (
             <LoadingBox></LoadingBox>
           ) : error ? (
@@ -27,7 +29,8 @@ const BlogScreen = () => {
           ) : (
             <div className="blog__container dp-flex">
               {blogs.map((blog) => (
-                <BlogCardScreen key={blog._id} blog={blog} />
+                  <BlogCardScreen key={blog._id} blog={blog} />
+ 
               ))}
             </div>
           )}

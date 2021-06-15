@@ -10,6 +10,7 @@ const SigninScreen = (props) => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+  
   const redirect = props.location.search
   ? props.location.search.split("=")[1]
   : "/";
@@ -20,6 +21,8 @@ const SigninScreen = (props) => {
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+
+  
 
   useEffect(() => {
     if (userInfo) {
@@ -55,11 +58,15 @@ const SigninScreen = (props) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button className="btn" type="submit">
+        <button className="btn btn--back" type="submit">
           sign in
         </button>
-      <Link className='link-register' to="/register"> create your account </Link>
-      </form>
+        <div>
+            New customer?
+            <Link to={`/register?redirect=${redirect}`}>
+              Create your account
+            </Link>
+          </div>      </form>
     </div>
     </FadeIn>
   );

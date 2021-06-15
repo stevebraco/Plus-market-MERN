@@ -15,6 +15,9 @@ import {
   BLOG_UPDATE_REQUEST,
   BLOG_UPDATE_SUCCESS,
   BLOG_UPDATE_FAIL,
+  BLOG_DELETE_REQUEST,
+  BLOG_DELETE_SUCCESS,
+  BLOG_DELETE_FAIL,
 } from "../constants/blogConstants";
 
 export const listBlogs = () => async (dispatch) => {
@@ -108,3 +111,22 @@ export const createComment = (blogId, comment) => async (dispatch, getState) => 
     dispatch({ type: BLOG_UPDATE_FAIL, error: message });
     }
   }
+
+  export const deleteBlog = (blogId) => async (dispatch, getState) => {
+    dispatch({ type: BLOG_DELETE_REQUEST, payload: blogId })
+    const {
+      userSignin: { userInfo },
+    } = getState();
+    try {
+      const { data } = Axios.delete(`/api/blogs/${blogId}`, {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+      dispatch({ type: BLOG_DELETE_SUCCESS, payload: data });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({ type: BLOG_DELETE_FAIL, payload: message });
+    }
+  };

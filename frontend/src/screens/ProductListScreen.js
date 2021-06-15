@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createProduct, listProducts } from '../actions/productActions';
+import { createProduct, deleteProduct, listProducts } from '../actions/productActions';
 import LoadingBox from '../components/LoadingBox';
-import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+import { PRODUCT_CREATE_RESET, PRODUCT_DELETE_RESET } from '../constants/productConstants';
 import FadeIn from "react-fade-in";
-
 
 const ProductListScreen = (props) => {
     const dispatch = useDispatch()
@@ -14,18 +13,27 @@ const ProductListScreen = (props) => {
 
     const productCreate = useSelector((state) => state.productCreate);
     const { loading: loadingCreate, success: successCreate, error: errorCreate, product: createdProduct } = productCreate;
+
+    const productDelete = useSelector(state => state.productDelete)
+    const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
     
     const createdHandler = () => {
         dispatch(createProduct())
     }
+    const deleteHandler = (product) => {
+      dispatch(deleteProduct(product._id))
+    }
 
     useEffect(() => {
+      if(successDelete) {
+        dispatch({ type: PRODUCT_DELETE_RESET })
+      }
         if(successCreate) {
             dispatch({ type: PRODUCT_CREATE_RESET})
             props.history.push(`/product/${createdProduct._id}/edit`)
         }
         dispatch(listProducts())
-    }, [dispatch, props.history, successCreate, createdProduct])
+    }, [dispatch, props.history, successCreate, createdProduct, successDelete])
 
     return (
         <FadeIn>
@@ -33,7 +41,8 @@ const ProductListScreen = (props) => {
             <button type="button" className="btn" onClick={createdHandler}>
           Create Product
         </button>
-
+        {loadingDelete && <LoadingBox></LoadingBox>}
+      {errorDelete && <p> {errorCreate} </p>}
         {loadingCreate && <LoadingBox></LoadingBox>}
       {errorCreate && <p> {errorCreate} </p>}
             {loading ? (
@@ -73,7 +82,7 @@ const ProductListScreen = (props) => {
                   <button
                     type="button"
                     className="small"
-                    // onClick={() => deleteHandler(product)}
+                    onClick={() => deleteHandler(product)}
                   >
                     Delete
                   </button>

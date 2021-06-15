@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createComment, detailsBlog, listBlogs } from "../actions/blogActions";
+import {
+  createComment,
+  deleteBlog,
+  detailsBlog,
+  listBlogs,
+} from "../actions/blogActions";
 import LoadingBox from "../components/LoadingBox";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -8,13 +13,12 @@ import { BLOG_COMMENT_CREATE_RESET } from "../constants/blogConstants";
 import BlogCardScreen from "./BlogCardScreen";
 import FadeIn from "react-fade-in";
 import BlogArticle from "../components/BlogArticle";
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const BlogDetailScreen = (props) => {
   const blogId = props.match.params.id;
   const [listComments, setListComments] = useState([]);
-  const [message, setMessage] = useState(false)
-  const [filterBlog, setFilterBlog] = useState([])
+  const [message, setMessage] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -26,6 +30,13 @@ const BlogDetailScreen = (props) => {
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+
+  const blogDelete = useSelector((state) => state.blogDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = blogDelete;
 
   const blogCommentCreate = useSelector((state) => state.blogCommentCreate);
   const {
@@ -43,7 +54,6 @@ const BlogDetailScreen = (props) => {
     } else alert("Please enter comment");
   };
 
-  
   useEffect(() => {
     dispatch(listBlogs());
     if (!blog || blog._id !== blogId) {
@@ -54,11 +64,12 @@ const BlogDetailScreen = (props) => {
       dispatch(detailsBlog(blogId));
       setComment("");
       dispatch({ type: BLOG_COMMENT_CREATE_RESET });
-      setMessage(true)
+      setMessage(true);
       setInterval(() => {
-      setMessage(false)
-      }, 7000)
+        setMessage(false);
+      }, 7000);
     }
+
 
     if (blog) {
       setListComments(blog.comments);
@@ -67,19 +78,17 @@ const BlogDetailScreen = (props) => {
       // clients.splice(index, 1)
       // setFilterBlog(clients)
     }
-
-   
-    
   }, [dispatch, blog, blogId, successCommentCreate]);
-  
+
+  const deleteHandler = (blogId) => {
+    dispatch(deleteBlog(blogId));
+  };
+
   return (
     <FadeIn>
       <section className="blog-article container">
         <div className="blog-article__container dp-flex">
           <div className="blog-article__content">
-            {userInfo && userInfo.isAdmin && (
-              <Link to={`/blog/${blogId}/edit`}>Edit</Link>
-            )}
             {loading ? (
               <LoadingBox></LoadingBox>
             ) : error ? (
@@ -91,34 +100,40 @@ const BlogDetailScreen = (props) => {
               <div className="comment">
                 <h4>Comments</h4>
                 <TransitionGroup className="todo-list">
-                {listComments.map((comment, index) => (
-                     <CSSTransition
-                       key={index}
-                       timeout={500}
-                       classNames="comment"
-                     >
-                 
-                  <div key={index} className="comment__container dp-flex">
-                    <div>
-                      <strong className="comment__name">
-                         {comment.name} :{" "}
-                      </strong>
-                      <p> {comment.comment} </p>
-                    </div>
-                    <span className="comment__date">
-                      {" "}
-                      {moment(comment.createdAt).fromNow()}{" "}
-                    </span>
-                  </div>
-                  </CSSTransition>
-                ))}
+                  {listComments.map((comment, index) => (
+                    <CSSTransition
+                      key={index}
+                      timeout={500}
+                      classNames="comment"
+                    >
+                      <div key={index} className="comment__container dp-flex">
+                        <div>
+                          <strong className="comment__name">
+                             {comment.name} :{" "}
+                          </strong>
+                          <p> {comment.comment} </p>
+                        </div>
+                        <span className="comment__date">
+                          {" "}
+                          {moment(comment.createdAt).fromNow()}{" "}
+                        </span>
+                      </div>
+                    </CSSTransition>
+                  ))}
                 </TransitionGroup>
               </div>
               {userInfo ? (
                 <form onSubmit={submitHandler}>
                   <div className="form__group">
-                    <div className={message ? 'comment-message active' : 'comment-message'}>
-                    <span className='alert alert-success'> Votre message a été publié </span>
+                    <div
+                      className={
+                        message ? "comment-message active" : "comment-message"
+                      }
+                    >
+                      <span className="alert alert-success">
+                        {" "}
+                        Votre message a été publié{" "}
+                      </span>
                     </div>
                     <label htmlFor="comment">Comment</label>
                     <textarea
@@ -129,18 +144,39 @@ const BlogDetailScreen = (props) => {
                       onChange={(e) => setComment(e.target.value)}
                     />
                   </div>
-                  <button className="btn" type="submit">
+                  <button className="btn btn--black" type="submit">
                     send
                   </button>
                   <div>
                     {loadingCommentCreate && <LoadingBox></LoadingBox>}
-                    {errorCommentCreate && <p> {errorCommentCreate} </p> }
+                    {errorCommentCreate && <p> {errorCommentCreate} </p>}
                   </div>
                 </form>
               ) : (
-                <p> Please <Link to="/signin">Sign In</Link> to write a comment </p>
+                <p>
+                  {" "}
+                  Please <Link to="/signin">Sign In</Link> to write a comment{" "}
+                </p>
               )}
             </div>
+           {userInfo && userInfo.isAdmin && (
+             <>
+            <button
+              type="button"
+              className="btn btn--green"
+              onClick={() => props.history.push(`/product/${blog._id}/edit`)}
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              className="btn btn--back"
+              onClick={() => deleteHandler(blog._id)}
+            >
+              Delete
+            </button>
+            </>
+            )}
           </div>
           <div className="blog-article__aside">
             <h2>You liked too...</h2>

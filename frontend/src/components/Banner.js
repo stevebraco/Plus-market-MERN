@@ -9,7 +9,7 @@ const Banner = ({heading, text, numberImg}) => {
                 <div className="banner__content">
                     <h3 className="banner__heading"> {heading} </h3>
                     <p className='banner__upto'> {text}</p>
-                    <Link to='/' className='btn'>check out</Link>
+                    <Link to='/' className='btn btn--black'>check out</Link>
                 </div>
             </div>
            

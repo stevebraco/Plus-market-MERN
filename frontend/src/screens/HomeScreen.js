@@ -25,10 +25,7 @@ import { listBlogs } from "../actions/blogActions";
 import BlogCardScreen from "./BlogCardScreen";
 
 const HomeScreen = () => {
-  const [qty, setQty] = useState(2);
-  const [click, setClick] = useState(false);
-  //   const [products, setProducts] = useState(data.products);
-
+  
   const dispatch = useDispatch();
   const productBestSeller = useSelector((state) => state.productBestSeller);
   const {
@@ -99,32 +96,28 @@ const HomeScreen = () => {
   const addToCartHandler = (item) => {
     const qty = 1;
     dispatch(addToCart(item, qty));
-    // setClick(true);
     dispatch({ type: CART_TOGGLE_OPEN });
   };
 
-  const handleIncrement = (item) => {
-    dispatch(cartIncrement(item));
-  };
-  const handleDecrement = (item) => {
-    dispatch(cartDecrement(item));
-  };
-  const handleClick = () => {
-    // setClick(!click)
-  };
-  const handleClose = () => {
-    // setClick(false)
-    dispatch({ type: CART_TOGGLE_CLOSE });
-  };
-
-  
-  console.log(toggle);
+  // const handleIncrement = (item) => {
+  //   dispatch(cartIncrement(item));
+  // };
+  // const handleDecrement = (item) => {
+  //   dispatch(cartDecrement(item));
+  // };
+  // const handleClick = () => {
+  //   // setClick(!click)
+  // };
+  // const handleClose = () => {
+  //   // setClick(false)
+  //   dispatch({ type: CART_TOGGLE_CLOSE });
+  // };
 
   return (
     <FadeIn>
         <section className="home container">
-          <div
-           className="home__container">
+          <div className="home__container">
+             <img className="home__img" src="./images/plats-salad.jpeg" alt="légume"/>
             <div className="home__content">
               <h3 className="home__heading">
                 active summer with juice milk 300ml
@@ -133,19 +126,14 @@ const HomeScreen = () => {
                 new arrivals with nature fruits, juice milks, essential for
                 summer
               </span>
-              <Link to="/" className="btn">
+              <Link to="/" className="btn btn--black">
                 shop now
               </Link>
             </div>
-            <div className="home__figure">
-              <img
-                className="home__img"
-                src="./images/plats-salad.jpeg"
-                alt="légume"
-              />
-            </div>
+              
             
           </div>
+
         </section>
         <section
           className="banner-container container">

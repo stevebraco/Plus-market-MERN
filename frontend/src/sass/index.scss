@@ -62,19 +62,17 @@ section {
   input,
   textarea {
     font-family: $fonts;
-    text-transform: none;
-    padding: 0.5rem;
+    border-radius: $borderRadius;
+    padding: 2rem 3rem;
+  border: 1px solid black;
+  outline: none;
+  background: #fafafa;
   }
   textarea {
     resize: none;
     height: 300px;
   }
-  input {
-    text-transform: initial;
-    border: none;
-    border: 0.1rem solid rgb(99, 96, 96);
-    padding: 1rem 0.5rem;
-  }
+  
   label {
     font-size: 1.3rem;
     padding-bottom: 0.5rem;
@@ -110,6 +108,8 @@ section {
   transition: opacity 500ms ease-in;
 }
 
+
+
 // Alert
 .alert {
   padding: 1rem;
@@ -131,6 +131,42 @@ section {
   background-color: #eeffe0;
 }
 
+// aside
+.aside-category {
+  position: absolute;
+  background: whitesmoke;
+  width: 23%;
+  z-index: 100;
+  height: 100%;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  transform: translateX(-30rem);
+  transition: .5s;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+
+  }
+  &__link {
+    color: #666;
+    font-size: 1.5rem;
+    transition: background .5s;
+    border-radius: 1rem;
+    padding: 1.5rem;
+
+
+    &:hover {
+      background: #ea5f4c25;
+      color: #ea5e4c;
+    }
+  }
+}
+.aside-category.active {
+  transform: translateX(0);
+  
+}
 
 
 //BUTTON
@@ -244,6 +280,8 @@ button {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
+    overflow: scroll;
+
   }
 
   &__total {
@@ -269,15 +307,11 @@ button {
   align-items: center;
   justify-content: space-between;
 }
-.align-center {
-  align-items: center;
-}
+
 
 .btn {
   display: inline-block;
   margin-top: 1rem;
-  background: #212121;
-  color: #fff;
   font-weight: bold;
   padding: 1.5rem 4rem;
   font-size: 1.5rem;
@@ -286,18 +320,32 @@ button {
   cursor: pointer;
   border: 1px solid transparent;
   transition: .5s;
-
-
   &:hover {
-    color: #212121;
-    background: transparent;
-    border: 1px solid #212121;
+    opacity: .6;
   }
+  
 }
-//FONT AWESOME
-.fa-chevron-down {
-  font-size: 1rem;
+.btn--black {
+  background: #212121;
+  color: #fff;
+  
 }
+.btn--back {
+  background: #ea5e4c;
+  color: #fff;
+}
+.btn--green {
+  background: #20a020;
+  color: #fff;
+  margin-right: 1rem;
+}
+
+.btn--disabled {
+  background-color: #929292;
+  color: #ffffff;
+  cursor: not-allowed;
+}
+
 
 .link-all {
   padding: 1rem;
@@ -409,7 +457,7 @@ button {
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    top: 25px;
+    top: 40px;
     right: -10rem;
     z-index: 5;
     background: #faf8f8;
@@ -423,7 +471,7 @@ button {
     box-shadow: 0px 10px 24px 6px rgb(71, 70, 70);
     & .navbar__link {
       transition: background .5s;
-      border-radius: 1rem;
+      border-radius: $borderRadius;
     }
     & .navbar__link:hover {
       background: #ea5f4c25;
@@ -436,37 +484,37 @@ button {
     opacity: 1;
   transition: .5s;
 
-
   }
-
+&__menu {
+  align-items: baseline;
+}
   &__link {
-    padding: 1rem 1rem;
+    padding: 1rem;
     font-size: 1.5rem;
-    color: #666;
+    color: #6e6d7a;
     text-transform: capitalize;
+    letter-spacing: 1px;
 
     &:hover {
       color: #212121;
     }
   }
 
-  &__icon {
-    font-size: 2rem;
-    color: #666;
-    cursor: pointer;
-  transition: .5s;
-
-
-    &:hover {
-      opacity: .4;
-    }
-  }
+  
 
   &__icons {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
   }
+}
+//FONT AWESOME
+.fa-chevron-down {
+  font-size: 1rem;
+}
+//FONT AWESOME
+.fa {
+  font-size: 2rem;
+  cursor: pointer;
 }
 .MuiAvatar-colorDefault {
   width: 30px !important;
@@ -491,27 +539,37 @@ button {
   &__container {
     position: relative;
     border-radius: 15px;
-    padding: 5rem 7rem;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.329);
-    &:hover .home__figure {
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.253);
+
+    }
+
+    &:hover .home__img {
       transform: scale(1.1);
     }
   }
   &__content {
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    transform: translateY(-50%);
     z-index: 1;
+
   }
 
-  &__figure {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-    transition: .5s;
-
-
+  &__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  transition: .5s;
   }
 
   &__fresh {

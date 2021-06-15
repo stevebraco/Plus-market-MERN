@@ -1,8 +1,8 @@
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { blogCommentCreateReducer, blogCreateReducer, blogDetailsReducer, blogListReducer, blogUpdateReducer } from './reducers/blogReducers';
+import { blogCommentCreateReducer, blogCreateReducer, blogDeleteReducer, blogDetailsReducer, blogListReducer, blogUpdateReducer } from './reducers/blogReducers';
 import { cartReducer, cartToggleReducer } from './reducers/cartReducers';
-import { productBestSellerReducer, productCategoryListReducer, productCreateReducer, productDetailsReducer, productLastReducer, productListReducer, productUpdateReducer } from './reducers/productReducers';
+import { productBestSellerReducer, productCategoryListReducer, productCreateReducer, productDetailsReducer, productLastReducer, productListReducer, productUpdateReducer, productDeleteReducer } from './reducers/productReducers';
 import { userRegisterReducer, userSigninReducer } from './reducers/userReducers';
 
 const initialState = {
@@ -28,6 +28,7 @@ const reducer = combineReducers({
   productCreate: productCreateReducer,
   productDetails: productDetailsReducer,
   productUpdate: productUpdateReducer,
+  productDelete: productDeleteReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
   cartToggle: cartToggleReducer,
@@ -36,6 +37,7 @@ const reducer = combineReducers({
   blogCreate: blogCreateReducer,
   blogCommentCreate: blogCommentCreateReducer,
   blogUpdate: blogUpdateReducer,
+  blogDelete: blogDeleteReducer
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

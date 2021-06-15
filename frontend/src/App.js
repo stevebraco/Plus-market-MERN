@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import './App.css';
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { listProductCategories } from "./actions/productActions";
 import { signout } from "./actions/userActions";
@@ -25,14 +25,22 @@ import SearchBox from "./components/SearchBox";
 import SearchScreen from "./screens/SearchScreen";
 import { CART_TOGGLE_CLOSE } from "./constants/cartConstants";
 import CartItems from "./components/CartItems";
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import ShippingAddressScreen from "./screens/ShippingAddressScreen";
+
+
 
 
 
 function App() {
   const [click, setClick] = useState(false);
+  const [asideCategory, setAsideCategory] = useState(false);
 
   const handleClick = () => setClick(!click);
+
   const dispatch = useDispatch();
+
+  const history = useHistory()
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -43,16 +51,12 @@ function App() {
   const toggleCart = useSelector((state) => state.cartToggle);
   const { toggle } = toggleCart;
 
-  
-
   const productCategoryList = useSelector((state) => state.productCategoryList);
   const {
     loading: loadingCategories,
     error: errorCategories,
     categories,
   } = productCategoryList;
-
-  
 
   useEffect(() => {
     dispatch(listProductCategories());
@@ -63,16 +67,21 @@ function App() {
   };
 
   const handleClose = () => {
-    // setClick(false)
     dispatch({ type: CART_TOGGLE_CLOSE });
   };
 
   const handleIncrement = (item) => {
     dispatch(cartIncrement(item));
   };
+
   const handleDecrement = (item) => {
     dispatch(cartDecrement(item));
   };
+
+  const handleCheckout = () => {
+    history.push("/")
+  }
+  
 
   const totalPrice = cartItems.reduce((a, c) => a + c.price * c.quantity, 0);
   cart.totalPrice = totalPrice;
@@ -85,7 +94,7 @@ function App() {
           <Link to="/" className="header__logo">
             <img
             className='header__logo'
-              src="https://fontmeme.com/permalink/210605/67bae7a0710d56fc789e4326e86cf322.png"
+              src="https://fontmeme.com/permalink/210610/ef36e62a4e1981ee748bc769f8161737.png"
               alt="logo"
             />
           </Link>
@@ -102,27 +111,12 @@ function App() {
             <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
           </div>
           <nav className={click ? "navbar__menu active" : "navbar__menu dp-flex"}>
-            <Link to="/" className="navbar__link">
-              home
-            </Link>
-            <div className="navbar__drop-down">
-                <Link to="/signin" className="navbar__link">
-                  category <i className="fa fa-chevron-down"></i>
-                </Link>
-                <div className="navbar__drop-down-content">
-                {loadingCategories ? (
-              <LoadingBox></LoadingBox>
-            ) : errorCategories ? (
-              <p>{errorCategories}</p>
-            ) : (
-              categories.map((c) => (
-                <Link to={`/search/category/${c}`} key={c} className="navbar__link">
-                    {c}
-                </Link>
-              ))
-              
-            )}
-                </div>
+            
+            <div>
+                <button onClick={ () => setAsideCategory(!asideCategory) } className=" btn btn--back">
+                <i class="fa fa-bars"></i> shop by category 
+                </button>
+                
               </div>
             <Link to="/products" className="navbar__link">
               product
@@ -139,19 +133,19 @@ function App() {
           </nav>
 
           <div className="navbar__icons">
-            <div onClick={ () => dispatch(cartToggle()) }  className="navbar__icon fa fa-shopping-basket">
+            <div onClick={ () => dispatch(cartToggle()) }  className="navbar__link fa fa-shopping-basket">
               {cartItems.length > 0 && (
                 <span className="badge"> {cartItems.length} </span>
               )}
             </div>
 
-            <Link to="/" className="navbar__icon fa fa-heart"></Link>
+            <Link to="/" className="navbar__link fa fa-heart"></Link>
             
             
             {userInfo && userInfo.isAdmin && (
               <div className="navbar__drop-down">
               <Link to="#admin">
-              <i className="navbar__icon fa fa-wrench"></i> 
+              <i className="navbar__link fa fa-wrench"></i> 
                 </Link>
                 <div className="navbar__drop-down-content">
                     <Link className='navbar__link' to="/productlist">products</Link>
@@ -161,7 +155,7 @@ function App() {
             )}
             {userInfo ? (
               <div className="navbar__drop-down">
-                <Link to="/signin" className="navbar__icon">
+                <Link to="/signin" className="navbar__link">
                 <Avatar alt={userInfo.name} src="img" />
                 </Link>
 
@@ -179,7 +173,7 @@ function App() {
                 
               </div>
             ) : (
-              <Link to="/signin" className="navbar__icon">
+              <Link to="/signin" className="navbar__link">
               <Avatar  />
               </Link>
             )}
@@ -187,6 +181,22 @@ function App() {
           
         </div>
       </header>
+      <aside className={asideCategory ? 'aside-category active' : 'aside-category' }>
+        <div className='aside-category__container'>
+                {loadingCategories ? (
+              <LoadingBox></LoadingBox>
+            ) : errorCategories ? (
+              <p>{errorCategories}</p>
+            ) : (
+              categories.map((c) => (
+                <Link to={`/search/category/${c}`} key={c} className="aside-category__link">
+                    {c}
+                </Link>
+              ))
+              
+            )}
+            </div>
+                </aside>
       <aside className={toggle ? 'cart-aside active' : 'cart-aside'}>
         {cartItems.length === 0 ? (
           <div className="cart">
@@ -205,22 +215,31 @@ function App() {
               <i className="fa fa-times"></i>{" "}
             </button>
                     </div>
-            <div className="cart__container">
+            <TransitionGroup className="cart__container">
               {cartItems.map((item) => (
+                 <CSSTransition
+                 key={item._id}
+                 timeout={500}
+                 classNames="comment"
+               >
                 <CartItems
                 key={item._id}
                   item={item}
                   handleIncrement={handleIncrement}
                   handleDecrement={handleDecrement}
                 />
+                </CSSTransition>
+                
               ))}
-            </div>
+              </TransitionGroup>
             <div className='dp-flex'>
               {userInfo ? (
-                <button className='btn'>Checkout</button>
+
+                <Link to={'/signin?redirect=shipping'} className='btn btn--green'> Checkout</Link>
 
               ): (
-                <button disabled className='btn'>Checkout</button>
+                <Link to={'/signin?redirect=shipping'} className='btn btn--disabled'> Checkout</Link>
+
 
               )}
             <strong className="cart__total">
@@ -240,6 +259,7 @@ function App() {
         <Route path="/product/:id" exact component={ProductDetailsScreen} />
         <Route path="/blog" exact component={BlogScreen} />
         <Route path="/blog/:id"  exact component={BlogDetailScreen} />
+        <Route path="/shipping" component={ShippingAddressScreen}></Route>
         <Route path="/search/name/:name" exact component={SearchScreen} ></Route>
         <AdminRoute path="/blogcreate" component={BlogCreateScreen} />
         <AdminRoute path="/productlist" component={ProductListScreen} ></AdminRoute>

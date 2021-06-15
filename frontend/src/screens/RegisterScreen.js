@@ -43,7 +43,7 @@ const RegisterScreen = (props) => {
         {loading && <LoadingBox></LoadingBox>}
         {error && <p> {error} </p>}
         <div className="form__group">
-          <label htmlFor="name">full full name</label>
+          <label htmlFor="name">full name</label>
           <input
             type="text"
             placeholder="Enter Name"
@@ -83,8 +83,8 @@ const RegisterScreen = (props) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </div>
-        <button className="btn" type="submit">
-          sign in
+        <button className="btn btn--back" type="submit">
+          Register
         </button>
         <div>
           <p className="link-register">

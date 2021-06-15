@@ -16,7 +16,11 @@ import {
   BLOG_UPDATE_SUCCESS,
   BLOG_UPDATE_FAIL,
   BLOG_UPDATE_RESET,
+  BLOG_DELETE_REQUEST,
+  BLOG_DELETE_SUCCESS,
+  BLOG_DELETE_RESET,
 } from "../constants/blogConstants";
+import { PRODUCT_DELETE_FAIL } from "../constants/productConstants";
 
 export const blogListReducer = (
   state = { loading: true, blogs: [] },
@@ -84,6 +88,21 @@ export const blogUpdateReducer = (state = {}, action) => {
     case BLOG_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     case BLOG_UPDATE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const blogDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case BLOG_DELETE_REQUEST:
+      return { loading: true };
+    case BLOG_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case PRODUCT_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+    case BLOG_DELETE_RESET:
       return {};
     default:
       return state;
