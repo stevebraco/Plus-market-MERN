@@ -9,10 +9,11 @@ import {
   USER_SIGNOUT,
 } from "../constants/userConstants";
 
-export const signin = (email, password) => async (dispatch) => {
-  dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
+export const signin = (formData) => async (dispatch) => {
+  dispatch({ type: USER_SIGNIN_REQUEST, payload: { formData}  });
+  console.log(formData);
   try {
-    const { data } = await Axios.post("/api/users/signin", { email, password });
+    const { data } = await Axios.post("/api/users/signin", formData );
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {

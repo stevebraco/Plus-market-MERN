@@ -38,7 +38,7 @@ const RegisterScreen = (props) => {
     <FadeIn>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1 className="heading">Register</h1>
+          <h2 className="heading">Register</h2>
         </div>
         {loading && <LoadingBox></LoadingBox>}
         {error && <p> {error} </p>}

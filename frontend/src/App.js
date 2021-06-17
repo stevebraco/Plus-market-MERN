@@ -27,12 +27,15 @@ import { CART_TOGGLE_CLOSE } from "./constants/cartConstants";
 import CartItems from "./components/CartItems";
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import ShippingAddressScreen from "./screens/ShippingAddressScreen";
-
+import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import decode from 'jwt-decode'
 
 
 
 
 function App() {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('userInfo')));
   const [click, setClick] = useState(false);
   const [asideCategory, setAsideCategory] = useState(false);
 
@@ -60,6 +63,7 @@ function App() {
 
   useEffect(() => {
     dispatch(listProductCategories());
+    
   }, [dispatch]);
 
   const signoutHandler = () => {
@@ -128,7 +132,7 @@ function App() {
               contact
             </Link>
             <Link to="/blog" className="navbar__link">
-              blog
+              blog 
             </Link>
           </nav>
 
@@ -156,7 +160,7 @@ function App() {
             {userInfo ? (
               <div className="navbar__drop-down">
                 <Link to="/signin" className="navbar__link">
-                <Avatar alt={userInfo.name} src="img" />
+                <Avatar alt={userInfo.name} src={userInfo.result?.imageUrl}  />
                 </Link>
 
                 <div className="navbar__drop-down-content">
@@ -232,16 +236,9 @@ function App() {
                 
               ))}
               </TransitionGroup>
-            <div className='dp-flex'>
-              {userInfo ? (
-
+            <div className='dp-flex'>             
                 <Link to={'/signin?redirect=shipping'} className='btn btn--green'> Checkout</Link>
 
-              ): (
-                <Link to={'/signin?redirect=shipping'} className='btn btn--disabled'> Checkout</Link>
-
-
-              )}
             <strong className="cart__total">
               {" "}
               TOTAL : <strong>${totalPrice.toFixed(2)} </strong>
@@ -260,6 +257,8 @@ function App() {
         <Route path="/blog" exact component={BlogScreen} />
         <Route path="/blog/:id"  exact component={BlogDetailScreen} />
         <Route path="/shipping" component={ShippingAddressScreen}></Route>
+        <Route path="/payment" component={PaymentScreen}></Route>
+        <Route path="/placeorder/:payment" component={PlaceOrderScreen}></Route>
         <Route path="/search/name/:name" exact component={SearchScreen} ></Route>
         <AdminRoute path="/blogcreate" component={BlogCreateScreen} />
         <AdminRoute path="/productlist" component={ProductListScreen} ></AdminRoute>

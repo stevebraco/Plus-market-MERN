@@ -54,6 +54,7 @@ html {
 body {
   height: 100%;
   font-family: "Roboto", sans-serif;
+  font-size: 1.4rem;
 }
 
 h1,
@@ -349,7 +350,6 @@ button {
 
 .dp-flex {
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
@@ -389,6 +389,18 @@ button {
   background-color: #929292;
   color: #ffffff;
   cursor: not-allowed;
+}
+
+.btn--google {
+  font-weight: bold !important;
+  padding: 0.5rem 4rem !important;
+  background-color: #4c83ea !important;
+  color: white !important;
+  border-radius: 1rem !important;
+  justify-content: center !important;
+}
+.btn--google div {
+  padding: 0.5rem !important;
 }
 
 .link-all {
@@ -904,6 +916,29 @@ button {
 }
 .comment__date {
   color: #666;
+}
+
+.checkout-steps > div {
+  border-top: 0.3rem #c0c0c0 solid;
+  flex: 1;
+  padding: 1rem;
+  font-weight: bold;
+  padding-bottom: 5rem;
+}
+
+.checkout-steps > div.active {
+  border-top-color: #ea5e4c;
+  color: #ea5e4c;
+}
+
+.order__name, .order__address, .order__postalCode, .order__city, .order__country {
+  padding-bottom: 1rem;
+}
+.order__shipping {
+  flex: 2 1 50rem;
+}
+.order__summary {
+  flex: 2 2 25rem;
 }
 
 @media (max-width: 1200px) {

@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../actions/userActions";
 import { Link } from "react-router-dom";
 import FadeIn from "react-fade-in";
+import { GoogleLogin } from 'react-google-login';
+import { signinGoogle } from "../actions/googleActions";
+import { USER_SIGNIN_SUCCESS } from "../constants/userConstants";
 
 
 const SigninScreen = (props) => {
@@ -16,7 +19,7 @@ const SigninScreen = (props) => {
   : "/";
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(signin(email, password));
+    dispatch(signin({email, password}));
   };
 
   const userSignin = useSelector((state) => state.userSignin);
@@ -29,6 +32,21 @@ const SigninScreen = (props) => {
       props.history.push(redirect);
     }
   }, [props.history, redirect, userInfo]);
+
+  const googleSuccess = async (res) => {
+    if(res) {
+      const result = res.profileObj
+      const token = res.tokenId
+      console.log(result);
+    
+     try {
+    dispatch(signinGoogle({result, token}));
+     } catch (error) {
+       console.log(error);
+     }
+  }
+}
+  const googleError = () => {}
 
   return (
     <FadeIn>
@@ -61,6 +79,14 @@ const SigninScreen = (props) => {
         <button className="btn btn--back" type="submit">
           sign in
         </button>
+        <GoogleLogin
+        className='btn btn--google'
+        clientId='8044367583-c6hmj7bnu6hui01g1fkgeehdbfpn4pr2.apps.googleusercontent.com'
+        buttonText='Google Login'
+        onSuccess={googleSuccess}
+        onFailure={googleError}
+        cookiePolicy="single_host_origin"
+        ></GoogleLogin>
         <div>
             New customer?
             <Link to={`/register?redirect=${redirect}`}>

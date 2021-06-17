@@ -7,6 +7,7 @@ html {
 body {
   height: 100%;
   font-family: $fonts;
+  font-size: 1.4rem;
 }
 h1,
 h2,
@@ -304,7 +305,7 @@ button {
 
 .dp-flex {
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: space-between;
 }
 
@@ -344,6 +345,19 @@ button {
   background-color: #929292;
   color: #ffffff;
   cursor: not-allowed;
+}
+.btn--google {
+  font-weight: bold !important;
+  padding: .5rem 4rem !important;
+  background-color: #4c83ea !important;
+  color: white !important;
+  border-radius: 1rem !important;
+  justify-content: center !important;
+  
+  div {
+    padding: .5rem !important;
+  }
+
 }
 
 
@@ -930,6 +944,33 @@ button {
   &__date {
     color: #666;
   }
+}
+//checkout
+.checkout-steps > div {
+  border-top: .3rem #c0c0c0 solid;
+  flex: 1;
+  padding: 1rem;
+  font-weight: bold;
+  padding-bottom: 5rem;
+}
+.checkout-steps > div.active {
+  border-top-color: #ea5e4c;
+  color: #ea5e4c;
+}
+
+//Shipping
+.order {
+  &__name, &__address, &__postalCode, &__city, &__country {
+    padding-bottom: 1rem;
+  }
+  &__shipping {
+    flex: 2 1 50rem;
+  }
+  &__summary {
+    flex: 2 2 25rem;
+
+  }
+
 }
 
 // Media Queries HEADER

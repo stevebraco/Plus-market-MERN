@@ -2,9 +2,11 @@ import {
   CART_ADD_DECREMENT,
   CART_ADD_INCREMENT,
   CART_ADD_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
   CART_TOGGLE,
   CART_TOGGLE_CLOSE,
   CART_TOGGLE_OPEN,
+  CART_SAVE_PAYMENT_METHOD,
 } from "../constants/cartConstants";
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
@@ -45,22 +47,27 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         };
       }
 
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return { ...state, shippingAddress: action.payload };
+
+    case CART_SAVE_PAYMENT_METHOD:
+      return { ...state, paymentMethod: action.payload};
+
     default:
       return state;
   }
 };
 
 export const cartToggleReducer = (state = { toggle: false }, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case CART_TOGGLE:
-      return {...state, toggle: !state.toggle };
-      case CART_TOGGLE_OPEN: 
+      return { ...state, toggle: !state.toggle };
+    case CART_TOGGLE_OPEN:
       return { toggle: true };
-      case CART_TOGGLE_CLOSE: 
-      return { toggle: false};
+    case CART_TOGGLE_CLOSE:
+      return { toggle: false };
 
-
-      default:
-        return state;
+    default:
+      return state;
   }
 };

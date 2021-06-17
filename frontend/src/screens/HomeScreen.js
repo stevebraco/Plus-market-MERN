@@ -135,17 +135,16 @@ const HomeScreen = () => {
           </div>
 
         </section>
-        <section
-          className="banner-container container">
+        <section className="banner-container container">
           <Banner heading="special Offer" text={"upto 45% off"} numberImg={1} />
           <Banner heading="limited Offer" text={"upto 50% off"} numberImg={2} />
         </section>
 
         <section className="category">
           <div className="container">
-          <h1 className="heading">
+          <h2 className="heading">
             shop by category
-          </h1>
+          </h2>
           <Link to="/">
             <h4 className="small-text-grey">
               All category{" "}
@@ -176,9 +175,9 @@ const HomeScreen = () => {
         </section>
 
         <section className="product container">
-          <h1 className="heading">
+          <h2 className="heading">
             latest products
-          </h1>
+          </h2>
           {loadingLast ? (
             <LoadingBox></LoadingBox>
           ) : errorLast ? (
@@ -193,9 +192,9 @@ const HomeScreen = () => {
         </section>
 
         <section className="product container">
-          <h1 className="heading">
+          <h2 className="heading">
             best products
-          </h1>
+          </h2>
           {loadingBestSeller ? (
             <LoadingBox></LoadingBox>
           ) : errorBestSeller ? (
