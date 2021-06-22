@@ -25,7 +25,8 @@ export const isAuth = (req, res, next) => {
     if (token && isCustomAuth) {
       // const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
       decodedData = jwt.verify(token, 'somethingsecret')
-      req.user_id = decodedData?.id
+      console.log('DECODED', decodedData);
+      req.user_id = decodedData?._id
       // jwt.verify(
       //   token,
       //   process.env.JWT_SECRET || 'somethingsecret',
