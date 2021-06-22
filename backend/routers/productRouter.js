@@ -11,7 +11,7 @@ productRouter.get(
   "/",
   (async (req, res) => {
     const name = req.query.name || '';
-    const nameFilter = name ? { name: { $regex: name, $options: 'i' }} : {}; //Search a product
+    const nameFilter = name ? { name: { $regex: name, $options: 'i' }} : {}; // Search a product
     const products = await Product.find({ ...nameFilter }).sort({ _id: -1 });
     try {
       res.send(products);
