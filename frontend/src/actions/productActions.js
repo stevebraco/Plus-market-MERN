@@ -38,6 +38,7 @@ export const listProducts = () => async (dispatch) => {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
   }
 };
+
 export const searchProducts = ({ name = '' }) => async (dispatch) => {
   dispatch({
     type: PRODUCT_LIST_REQUEST,

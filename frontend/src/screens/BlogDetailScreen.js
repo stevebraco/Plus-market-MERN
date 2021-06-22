@@ -6,7 +6,9 @@ import {
   detailsBlog,
   listBlogs,
 } from "../actions/blogActions";
-import LoadingBox from "../components/LoadingBox";
+import { Avatar } from '@material-ui/core';
+import { red} from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';import LoadingBox from "../components/LoadingBox";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { BLOG_COMMENT_CREATE_RESET } from "../constants/blogConstants";
@@ -14,6 +16,15 @@ import BlogCardScreen from "./BlogCardScreen";
 import FadeIn from "react-fade-in";
 import BlogArticle from "../components/BlogArticle";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+
+const useStyles = makeStyles((theme) => ({
+  
+  red: {
+    color: theme.palette.getContrastText(red[500]),
+    backgroundColor: red[400],
+  },
+ 
+}));
 
 const BlogDetailScreen = (props) => {
   const blogId = props.match.params.id;
@@ -84,6 +95,9 @@ const BlogDetailScreen = (props) => {
     dispatch(deleteBlog(blogId));
   };
 
+  const classes = useStyles();
+ 
+
   return (
     <FadeIn>
       <section className="blog-article container">
@@ -106,17 +120,20 @@ const BlogDetailScreen = (props) => {
                       timeout={500}
                       classNames="comment"
                     >
-                      <div key={index} className="comment__container dp-flex">
-                        <div>
+                      <div key={index} className="comment__container">
+                          <div className='comment__info dp-flex'>
+                        <Avatar className={classes.red}  alt={`${comment.name}`.toUpperCase()} src={`${comment.picture}`}/>
                           <strong className="comment__name">
-                             {comment.name} :{" "}
+                             {comment.name} :
                           </strong>
+                          </div>
+                        <div className='dp-flex'>
                           <p> {comment.comment} </p>
-                        </div>
                         <span className="comment__date">
                           {" "}
                           {moment(comment.createdAt).fromNow()}{" "}
                         </span>
+                        </div>
                       </div>
                     </CSSTransition>
                   ))}

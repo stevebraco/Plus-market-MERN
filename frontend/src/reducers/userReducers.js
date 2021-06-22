@@ -1,3 +1,4 @@
+import { GOOGLE_AUTH_SUCCESS } from "../constants/googleConstans";
 import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
@@ -14,7 +15,16 @@ export const userSigninReducer = (state = {}, action) => {
       return { loading: true };
 
     case USER_SIGNIN_SUCCESS:
-      return { loading: false, userInfo: action.payload };
+      localStorage.setItem("userInfo", JSON.stringify(action.data || action.payload));
+      // localStorage.setItem("userInfo", JSON.stringify(action.payload));
+      // localStorage.setItem("userInfo", JSON.stringify(action.payload) || JSON.stringify(action.data) );
+      console.log(action.data);
+      console.log(action.payload);
+      return {...state, userInfo: action.data || action.payload , loading: false};
+
+      // case GOOGLE_AUTH_SUCCESS:
+      //   localStorage.setItem("userInfo", JSON.stringify(action.data));
+      //   return {...state, userInfo: action.data, loading: false};
 
     case USER_SIGNIN_FAIL:
       return { loading: false, error: action.payload };

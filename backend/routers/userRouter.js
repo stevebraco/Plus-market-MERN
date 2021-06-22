@@ -27,20 +27,28 @@ userRouter.get("/", async (req, res) => {
 userRouter.post("/signin", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   try {
-    if (user) {
-      if (bcrypt.compareSync(req.body.password, user.password)) {
-        res.send({
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-          isAdmin: user.isAdmin,
-          createdAt: user.createdAt,
-          token: generateToken(user),
-        });
-        return;
-      }
-    }
-    res.status(401).send({ message: "Invalid email or password" });
+    if(!user) return res.status(404).json({ message: "User Doesn't exist"})
+    if (!bcrypt.compareSync(req.body.password, user.password)) return res.status(401).json({ message: 'Invalid email or password' })
+    const token = generateToken(user)
+
+    res.status(200).json({result: user, token})
+    
+    // if (user) {
+    //   if (bcrypt.compareSync(req.body.password, user.password)) {
+    //     const token = generateToken(user)
+    //     // res.send({
+    //     //   _id: user._id,
+    //     //   name: user.name,
+    //     //   email: user.email,
+    //     //   isAdmin: user.isAdmin,
+    //     //   createdAt: user.createdAt,
+    //     //   token: generateToken(user),
+    //     // });
+    //     res.status(200).json({result : user, token})
+    //     return;
+    //   }
+    // }
+    // res.status(401).send({ message: "Invalid email or password" });
   } catch (error) {
     res.status(404).send({ message: error.message });
   }

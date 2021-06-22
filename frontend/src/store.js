@@ -42,7 +42,7 @@ const reducer = combineReducers({
   blogCommentCreate: blogCommentCreateReducer,
   blogUpdate: blogUpdateReducer,
   blogDelete: blogDeleteReducer,
-  googleSignin: googleSigninReducer,
+  // googleSignin: googleSigninReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

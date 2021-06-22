@@ -3,13 +3,13 @@ import { GOOGLE_AUTH_FAIL, GOOGLE_AUTH_REQUEST, GOOGLE_AUTH_SUCCESS } from '../c
 import { USER_SIGNIN_SUCCESS } from '../constants/userConstants';
 
 
-export const signinGoogle = (formData) => async (dispatch, getState) => {
+export const signinGoogle = (formData) => async (dispatch) => {
     dispatch({ type: GOOGLE_AUTH_REQUEST, payload: formData });
-    
+    console.log(formData);
     try {
       const { data } = await Axios.post("/api/users/signin", formData );
-      dispatch({ type: USER_SIGNIN_SUCCESS, payload: data});
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      dispatch({ type: GOOGLE_AUTH_SUCCESS, payload: data});
+      // localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
       dispatch({
         type: GOOGLE_AUTH_FAIL,

@@ -16,24 +16,41 @@ export const generateToken = (user) => {
     )
 }
 export const isAuth = (req, res, next) => {
-    const authorization = req.headers.authorization;
-    if (authorization) {
-      const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
-      jwt.verify(
-        token,
-        process.env.JWT_SECRET || 'somethingsecret',
-        (err, decode) => {
-          if (err) {
-            res.status(401).send({ message: 'Invalid Token' });
-          } else {
-            req.user = decode;
-            next();
-          }
-        }
-      );
+    // const authorization = req.headers.authorization;
+    const token = req.headers.authorization.split(' ')[1]
+    const isCustomAuth = token < 500
+
+    let decodedData;
+
+    if (token && isCustomAuth) {
+      // const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
+      decodedData = jwt.verify(token, 'somethingsecret')
+      req.user._id = decodedData?.id
+      // jwt.verify(
+      //   token,
+      //   process.env.JWT_SECRET || 'somethingsecret',
+      //   (err, decode) => {
+      //     if (err) {
+      //       res.status(401).send({ message: 'Invalid Token' });
+      //     } else {
+      //       req.user = decode;
+      //       next();
+      //     }
+      //   }
+      // );
     } else {
-      res.status(401).send({ message: 'No Token' });
+      // res.status(401).send({ message: 'No Token' });
+      decodedData = jwt.decode(token)
+      console.log('decoded', decodedData);
+      //GOOGLE
+      req.user_id = decodedData?.sub
+      //NORMAL
+      req.user_idd = decodedData?._id
+      req.picture = decodedData?.picture
+      req.name = decodedData?.name
+      
     }
+    next()
   };
 
 export const isAdmin = (req, res, next) => {

@@ -6,6 +6,7 @@ import FadeIn from "react-fade-in";
 import { GoogleLogin } from 'react-google-login';
 import { signinGoogle } from "../actions/googleActions";
 import { USER_SIGNIN_SUCCESS } from "../constants/userConstants";
+import { GOOGLE_AUTH_SUCCESS } from "../constants/googleConstans";
 
 
 const SigninScreen = (props) => {
@@ -25,8 +26,6 @@ const SigninScreen = (props) => {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
-  
-
   useEffect(() => {
     if (userInfo) {
       props.history.push(redirect);
@@ -38,9 +37,11 @@ const SigninScreen = (props) => {
       const result = res.profileObj
       const token = res.tokenId
       console.log(result);
+      console.log(token);
     
      try {
-    dispatch(signinGoogle({result, token}));
+    // dispatch(signinGoogle({result, token}));
+    dispatch({ type: USER_SIGNIN_SUCCESS, data:{result, token} });
      } catch (error) {
        console.log(error);
      }

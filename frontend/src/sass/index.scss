@@ -530,11 +530,6 @@ button {
   font-size: 2rem;
   cursor: pointer;
 }
-.MuiAvatar-colorDefault {
-  width: 30px !important;
-  height: 30px !important;
-  background: #666 !important;
-}
 
 #menu-bar {
   font-size: 3rem;
@@ -934,6 +929,13 @@ button {
       height: 0.1rem;
       position: absolute;
     }
+  }
+
+  &__info {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 
   &__name {

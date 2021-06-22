@@ -560,12 +560,6 @@ button {
   cursor: pointer;
 }
 
-.MuiAvatar-colorDefault {
-  width: 30px !important;
-  height: 30px !important;
-  background: #666 !important;
-}
-
 #menu-bar {
   font-size: 3rem;
   border-radius: 0.5rem;
@@ -908,6 +902,12 @@ button {
   left: 0;
   height: 0.1rem;
   position: absolute;
+}
+.comment__info {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 .comment__name {
   display: inline-block;

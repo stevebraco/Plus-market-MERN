@@ -67,15 +67,17 @@ blogRouter.post(
   "/:id/comments",
   isAuth,
   expressAsyncHandler(async (req, res) => {
+    console.log('REQUEST',req);
     const blog = await Blog.findById(req.params.id);
     if (blog) {
       // if (blog.comments.find((x) => x.name === req.user.name)) {
       //   return res
       //     .status(400)
       //     .send({ message: "You already submitted a review" });
-      // }
+      // 
       const comment = {
-        name: req.user.name,
+        name: req.name,
+        picture: req.picture,
         comment: req.body.comment,
       };
       blog.comments.push(comment);

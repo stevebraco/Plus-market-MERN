@@ -19,6 +19,8 @@ import BlogCreateScreen from "./screens/BlogCreateScreen";
 import ProductDetailsScreen from "./screens/ProductDetailsScreen";
 import BlogScreen from "./screens/BlogScreen";
 import { Avatar } from '@material-ui/core';
+import { red} from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';
 import BlogEditScreen from "./screens/BlogEditScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import SearchBox from "./components/SearchBox";
@@ -32,7 +34,14 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import decode from 'jwt-decode'
 
 
-
+const useStyles = makeStyles((theme) => ({
+  
+  red: {
+    color: theme.palette.getContrastText(red[500]),
+    backgroundColor: red[400],
+  },
+ 
+}));
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('userInfo')));
@@ -40,6 +49,7 @@ function App() {
   const [asideCategory, setAsideCategory] = useState(false);
 
   const handleClick = () => setClick(!click);
+
 
   const dispatch = useDispatch();
 
@@ -89,6 +99,9 @@ function App() {
 
   const totalPrice = cartItems.reduce((a, c) => a + c.price * c.quantity, 0);
   cart.totalPrice = totalPrice;
+
+  
+  const classes = useStyles();
 
   return (
     <BrowserRouter>
@@ -160,7 +173,7 @@ function App() {
             {userInfo ? (
               <div className="navbar__drop-down">
                 <Link to="/signin" className="navbar__link">
-                <Avatar alt={userInfo.name} src={userInfo.result?.imageUrl}  />
+                <Avatar className={classes.red} alt={`${userInfo.result.name}`.toUpperCase()} src={`${userInfo.result?.imageUrl}`}  />
                 </Link>
 
                 <div className="navbar__drop-down-content">
