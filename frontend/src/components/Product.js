@@ -8,7 +8,7 @@ const Product = ({item, addToCartHandler}) => {
     
     
     return (
-        <div key={item._id} className="box product__box">
+        <div  className="box product__box">
               <div className="product__icons">
                   <Link  className='product__link' to='/'><i className="fa fa-heart"></i> </Link>
               </div>

@@ -131,7 +131,7 @@ function App() {
             
             <div>
                 <button onClick={ () => setAsideCategory(!asideCategory) } className=" btn btn--back">
-                <i class="fa fa-bars"></i> shop by category 
+                <i className="fa fa-bars"></i> shop by category 
                 </button>
                 
               </div>

@@ -203,7 +203,7 @@ const HomeScreen = () => {
             <div>
               <Slider {...settings}>
                 {productsBestSeller.map((item) => (
-                  <Product item={item} addToCartHandler={addToCartHandler} />
+                  <Product key={item._id} item={item} addToCartHandler={addToCartHandler} />
                 ))}
               </Slider>
             </div>
@@ -221,7 +221,7 @@ const HomeScreen = () => {
           <div className='blog__container dp-flex'>
             {
               blogs.slice(0,2).map((blog) => (
-                <BlogCardScreen blog={blog} />
+                <BlogCardScreen key={blog._id} blog={blog} />
               ))
             }
           </div>
