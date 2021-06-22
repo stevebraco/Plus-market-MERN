@@ -26,7 +26,7 @@ export const isAuth = (req, res, next) => {
       // const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
       decodedData = jwt.verify(token, 'somethingsecret')
       console.log('DECODED', decodedData);
-    //   req.user_id = decodedData?._id
+    req.user_id = decodedData
       // jwt.verify(
       //   token,
       //   process.env.JWT_SECRET || 'somethingsecret',
@@ -44,11 +44,11 @@ export const isAuth = (req, res, next) => {
       decodedData = jwt.decode(token)
       console.log('decoded', decodedData);
       //GOOGLE
-      req.user_id = decodedData?.sub
+      req.user = decodedData
       //NORMAL
     //   req.user_idd = decodedData?._id
-      req.picture = decodedData?.picture
-      req.name = decodedData?.name
+    //   req.picture = decodedData?.picture
+    //   req.name = decodedData?.name
       
     }
     next()
