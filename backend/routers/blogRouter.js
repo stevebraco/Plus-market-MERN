@@ -76,8 +76,8 @@ blogRouter.post(
       //     .send({ message: "You already submitted a review" });
       // 
       const comment = {
-        name: req.name,
-        picture: req.picture,
+        name: req.user.name,
+        picture: req.user.picture,
         comment: req.body.comment,
       };
       blog.comments.push(comment);
