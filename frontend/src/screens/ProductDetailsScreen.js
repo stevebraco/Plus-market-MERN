@@ -85,7 +85,6 @@ const ProductDetailsScreen = (props) => {
             </div>
             </div>
             </div>
-          </div>
         </section>
       )}
     </FadeIn>
