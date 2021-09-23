@@ -41,7 +41,7 @@ const ProductDetailsScreen = (props) => {
             <span className='txt-gr'>4 customer reviews</span>
             <p> <strong> REF: </strong> <span className="txt-gray"> {product._id}</span></p>
           </div>
-          <div className='productDetails__container'>
+          <div className='productDetails__container'></div>
             <div className='productDetails__figure'>
               <img className='img__large' src={product.image} alt={product.name} />
             </div>
