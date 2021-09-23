@@ -8,7 +8,8 @@ import {
 } from "../actions/blogActions";
 import { Avatar } from '@material-ui/core';
 import { red} from '@material-ui/core/colors';
-import { makeStyles } from '@material-ui/core/styles';import LoadingBox from "../components/LoadingBox";
+import { makeStyles } from '@material-ui/core/styles';
+import LoadingBox from "../components/LoadingBox";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import { BLOG_COMMENT_CREATE_RESET } from "../constants/blogConstants";
@@ -81,14 +82,10 @@ const BlogDetailScreen = (props) => {
       }, 7000);
     }
 
-
     if (blog) {
       setListComments(blog.comments);
-      // const clients = blogs.slice()
-      // const index = clients.findIndex((client) => {return client._id === blogId})
-      // clients.splice(index, 1)
-      // setFilterBlog(clients)
     }
+
   }, [dispatch, blog, blogId, successCommentCreate]);
 
   const deleteHandler = (blogId) => {
@@ -97,6 +94,7 @@ const BlogDetailScreen = (props) => {
 
   const classes = useStyles();
  
+  const asideBlog = blogs?.filter((item) => item._id !== blog?._id)
 
   return (
     <FadeIn>
@@ -130,8 +128,7 @@ const BlogDetailScreen = (props) => {
                         <div className='dp-flex'>
                           <p> {comment.comment} </p>
                         <span className="comment__date">
-                          {" "}
-                          {moment(comment.createdAt).fromNow()}{" "}
+                          {moment(comment.createdAt).fromNow()}
                         </span>
                         </div>
                       </div>
@@ -196,15 +193,15 @@ const BlogDetailScreen = (props) => {
             )}
           </div>
           <div className="blog-article__aside">
-            <h2>You liked too...</h2>
+            <h2 className='heading'>Related Posts</h2>
             {loadingList ? (
               <LoadingBox></LoadingBox>
             ) : errorList ? (
               <p> {errorList} </p>
             ) : (
               <div className="blog-article__container">
-                {blogs.slice(0, 5).map((blog) => (
-                  <BlogCardScreen key={blog._id} blog={blog} />
+                {asideBlog.slice(0, 5).map((blog) => (
+                  <BlogCardScreen key={blog._id} blog={blog} large={true} />
                 ))}
               </div>
             )}

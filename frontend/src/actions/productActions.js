@@ -25,6 +25,11 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_SUCCESS,
+  PRODUCT_FAVORITES_REQUEST,
+  PRODUCT_FAVORITES_SUCCESS,
+  PRODUCT_CATEGORY,
+  PRODUCT_FILTER,
+  PRODUCT_FILTER_SUCCESS,
 } from "../constants/productConstants";
 
 export const listProducts = () => async (dispatch) => {
@@ -166,3 +171,7 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
     dispatch({ type: PRODUCT_DELETE_FAIL, payload: message });
   }
 };
+
+export const filterProduct = (filterProducts) => async (dispatch) => {
+  dispatch({type: PRODUCT_FILTER, payload: filterProducts})
+} 

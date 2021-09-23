@@ -26,6 +26,8 @@ const {
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_RESET,
+  PRODUCT_FILTER,
+  PRODUCT_FILTER_SUCCESS,
   
 } = require("../constants/productConstants");
 
@@ -146,6 +148,16 @@ export const productDeleteReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case PRODUCT_DELETE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const productFilterReducer = (state = { productsFilter: []}, action) => {
+  switch (action.type) {
+    case PRODUCT_FILTER:
+      console.log(action.payload);
+      return {productsFilter: action.payload}
     default:
       return state;
   }

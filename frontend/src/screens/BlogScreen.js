@@ -6,6 +6,7 @@ import moment from "moment";
 import { listBlogs } from "../actions/blogActions";
 import FadeIn from "react-fade-in";
 import BlogCardScreen from "./BlogCardScreen";
+import BlogCardFullScreen from "./BlogCardFullScreen";
 
 const BlogScreen = () => {
   const dispatch = useDispatch();
@@ -21,15 +22,16 @@ const BlogScreen = () => {
   return (
     <FadeIn>
       <section className="blog">
+        <h1 className="heading-center">blog & news</h1>
         <div className="container">
           {loading ? (
             <LoadingBox></LoadingBox>
           ) : error ? (
             <p> {error} </p>
           ) : (
-            <div className="blog__container dp-flex">
+            <div className="blog__container">
               {blogs.map((blog) => (
-                  <BlogCardScreen key={blog._id} blog={blog} />
+                  <BlogCardFullScreen key={blog._id} blog={blog} />
  
               ))}
             </div>

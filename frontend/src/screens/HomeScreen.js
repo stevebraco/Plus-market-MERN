@@ -25,6 +25,7 @@ import { listBlogs } from "../actions/blogActions";
 import BlogCardScreen from "./BlogCardScreen";
 
 const HomeScreen = () => {
+  const [favorites, setFavorites] = useState([]);
   
   const dispatch = useDispatch();
   const productBestSeller = useSelector((state) => state.productBestSeller);
@@ -55,10 +56,23 @@ const HomeScreen = () => {
   cart.totalPrice = totalPrice;
 
   useEffect(() => {
+    const store = JSON.parse(localStorage.getItem("favorites"))
+    if(store) {
+      setFavorites(store)
+    } else {
+      setFavorites([])
+    }
+  }, []);
+
+  useEffect(() => {
     dispatch(lastProducts());
     dispatch(bestSellerProducts());
     dispatch(listBlogs());
-  }, [dispatch]);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [dispatch, favorites]);
+
+ 
+ 
 
   let settings = {
     infinite: true,
@@ -99,6 +113,17 @@ const HomeScreen = () => {
     dispatch({ type: CART_TOGGLE_OPEN });
   };
 
+  // const onClickHeart = (item) => {
+  //   const existItem = favorites.find((existItem) => existItem._id === item._id)
+  //   if(existItem) {
+  //     const deleteItem = favorites.filter((existItem) => existItem._id !== item._id)
+  //     setFavorites([...deleteItem])
+  //   } else {
+  //     const newFavorites = [...favorites, item ]
+  //     setFavorites(newFavorites)
+  //   }
+  // }
+
   // const handleIncrement = (item) => {
   //   dispatch(cartIncrement(item));
   // };
@@ -117,7 +142,7 @@ const HomeScreen = () => {
     <FadeIn>
         <section className="home container">
           <div className="home__container">
-             <img className="home__img" src="./images/plats-salad.jpeg" alt="légume"/>
+             <img className="home__img" src="./images/homepage.jpeg" alt="légume"/>
             <div className="home__content">
               <h3 className="home__heading">
                 active summer with juice milk 300ml
@@ -129,15 +154,12 @@ const HomeScreen = () => {
               <Link to="/" className="btn btn--black">
                 shop now
               </Link>
-            </div>
-              
-            
+            </div> 
           </div>
-
         </section>
         <section className="banner-container container">
-          <Banner heading="special Offer" text={"upto 45% off"} numberImg={1} />
-          <Banner heading="limited Offer" text={"upto 50% off"} numberImg={2} />
+          <Banner heading="special Offer" text={"upto 45% off"} ImgSrc={'./images/banner-3.jpeg'} />
+          <Banner heading="limited Offer" text={"upto 50% off"} ImgSrc={'./images/banner-4.jpeg'} />
         </section>
 
         <section className="category">
@@ -211,7 +233,7 @@ const HomeScreen = () => {
         </section>
         <section className='blog'>
           <div className="container">
-          <h2>Health Daily</h2>
+          <h2>Blog & News</h2>
         <div>
         {loadingBlogs ? (
           <LoadingBox></LoadingBox>

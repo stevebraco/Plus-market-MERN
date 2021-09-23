@@ -16,6 +16,7 @@ import ProductsScreen from "./screens/ProductsScreen";
 import { cartDecrement, cartIncrement, cartToggle } from "./actions/cartActions";
 import BlogDetailScreen from "./screens/BlogDetailScreen";
 import BlogCreateScreen from "./screens/BlogCreateScreen";
+import ProductFavoritesScreen from "./screens/ProductFavoritesScreen";
 import ProductDetailsScreen from "./screens/ProductDetailsScreen";
 import BlogScreen from "./screens/BlogScreen";
 import { Avatar } from '@material-ui/core';
@@ -31,7 +32,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
-import decode from 'jwt-decode'
+import TestScreen from "./screens/TestScreen";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('userInfo')));
   const [click, setClick] = useState(false);
-  const [asideCategory, setAsideCategory] = useState(false);
+  // const [asideCategory, setAsideCategory] = useState(false);
 
   const handleClick = () => setClick(!click);
 
@@ -73,7 +74,6 @@ function App() {
 
   useEffect(() => {
     dispatch(listProductCategories());
-    
   }, [dispatch]);
 
   const signoutHandler = () => {
@@ -129,12 +129,12 @@ function App() {
           </div>
           <nav className={click ? "navbar__menu active" : "navbar__menu dp-flex"}>
             
-            <div>
+            {/* <div>
                 <button onClick={ () => setAsideCategory(!asideCategory) } className=" btn btn--back">
                 <i className="fa fa-bars"></i> shop by category 
                 </button>
                 
-              </div>
+              </div> */}
             <Link to="/products" className="navbar__link">
               product
             </Link>
@@ -147,6 +147,18 @@ function App() {
             <Link to="/blog" className="navbar__link">
               blog 
             </Link>
+                {/* {loadingCategories ? (
+              <LoadingBox></LoadingBox>
+            ) : errorCategories ? (
+              <p>{errorCategories}</p>
+            ) : (
+              categories.map((c) => (
+                <Link to={`/search/category/${c}`} key={c} className="navbar__link">
+                    {c}
+                </Link>
+              ))
+              
+            )} */}
           </nav>
 
           <div className="navbar__icons">
@@ -156,10 +168,10 @@ function App() {
               )}
             </div>
 
-            <Link to="/" className="navbar__link fa fa-heart"></Link>
+            <Link to="/favoriteslist" className="navbar__link fa fa-heart"></Link>
             
             
-            {userInfo && userInfo.isAdmin && (
+            {userInfo && userInfo.result.isAdmin && (
               <div className="navbar__drop-down">
               <Link to="#admin">
               <i className="navbar__link fa fa-wrench"></i> 
@@ -185,7 +197,7 @@ function App() {
                   </Link>
                   <Link className="navbar__link signout" to="#signout" onClick={signoutHandler}>
                     Sign Out
-                  </Link>{" "}
+                  </Link>
                 </div>
                 
               </div>
@@ -198,7 +210,7 @@ function App() {
           
         </div>
       </header>
-      <aside className={asideCategory ? 'aside-category active' : 'aside-category' }>
+      {/* <aside className={asideCategory ? 'aside-category active' : 'aside-category' }>
         <div className='aside-category__container'>
                 {loadingCategories ? (
               <LoadingBox></LoadingBox>
@@ -213,7 +225,7 @@ function App() {
               
             )}
             </div>
-                </aside>
+                </aside> */}
       <aside className={toggle ? 'cart-aside active' : 'cart-aside'}>
         {cartItems.length === 0 ? (
           <div className="cart">
@@ -273,10 +285,12 @@ function App() {
         <Route path="/payment" component={PaymentScreen}></Route>
         <Route path="/placeorder/:payment" component={PlaceOrderScreen}></Route>
         <Route path="/search/name/:name" exact component={SearchScreen} ></Route>
+        <Route path="/favoriteslist" component={ProductFavoritesScreen} ></Route>
         <AdminRoute path="/blogcreate" component={BlogCreateScreen} />
         <AdminRoute path="/productlist" component={ProductListScreen} ></AdminRoute>
          <AdminRoute path="/product/:id/edit" exact component={ProductEditScreen} ></AdminRoute>
         <AdminRoute path="/blog/:id/edit" component={BlogEditScreen} ></AdminRoute>
+        <Route path="/test" exact component={TestScreen} />
         <Route path="/" exact component={HomeScreen} />
       </main>
     </BrowserRouter>
