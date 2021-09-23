@@ -30,6 +30,7 @@ const ProductAllScreen = () => {
 
   useEffect(() => {
     dispatch(listProducts())
+    dispatch(filterProduct(products));
   }, [dispatch])
 
   const addToCartHandler = (item) => {
