@@ -21,31 +21,31 @@ productRouter.get(
   })
 );
 
-// Les derniers produits
-productRouter.get(
-  "/lastproducts",
-  expressAsyncHandler(async (req, res) => {
-    const products = await Product.find().sort({ _id: -1 }).limit(5);
-    try {
-      res.send(products);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  })
-);
+// // Les derniers produits
+// productRouter.get(
+//   "/lastproducts",
+//   expressAsyncHandler(async (req, res) => {
+//     const products = await Product.find().sort({ _id: -1 }).limit(5);
+//     try {
+//       res.send(products);
+//     } catch (error) {
+//       res.status(500).json({ message: error.message });
+//     }
+//   })
+// );
 
 // Les Best Ratings
-productRouter.get(
-  "/bestseller",
-  expressAsyncHandler(async (req, res) => {
-    const products = await Product.find().sort({ rating: -1 }).limit();
-    try {
-      res.send(products);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  })
-);
+// productRouter.get(
+//   "/bestseller",
+//   expressAsyncHandler(async (req, res) => {
+//     const products = await Product.find().sort({ rating: -1 }).limit();
+//     try {
+//       res.send(products);
+//     } catch (error) {
+//       res.status(500).json({ message: error.message });
+//     }
+//   })
+// );
 
 //Insert plusieurs documents
 productRouter.get("/seed", async (req, res) => {

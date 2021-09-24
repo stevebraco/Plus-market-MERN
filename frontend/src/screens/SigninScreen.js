@@ -12,8 +12,8 @@ const TestScreen = (props) => {
   const dispatch = useDispatch();
 
   const redirect = props.location.search
-  ? props.location.search.split("=")[1]
-  : "/";
+    ? props.location.search.split("=")[1]
+    : "/";
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
@@ -43,19 +43,19 @@ const TestScreen = (props) => {
 
   return (
     <section className='container'>
-      <div className='dp-flex just-center'>
-      <div className='container__form'>
-      <div className='container__form__btn'>
-      <button className={ isLogin ? 'switch-btn-active' : 'switch-btn' } onClick={() => setisLogin(true)}>Login</button>
-      <button className={ !isLogin ? 'switch-btn-active' : 'switch-btn' } onClick={() => setisLogin(false)}>Register</button>
-      </div>
-      {isLogin ? (
-        <Login props={props} />
-      ) : (
-        <Register props={props} />
-      )}
-      <span className='form__text'> Or login with : </span>
-      <GoogleLogin
+      <div className='dp-flex just-center container__formFlex'>
+        <div className='container__form'>
+          <div className='container__form__btn'>
+            <button className={isLogin ? 'switch-btn-active' : 'switch-btn'} onClick={() => setisLogin(true)}>Login</button>
+            <button className={!isLogin ? 'switch-btn-active' : 'switch-btn'} onClick={() => setisLogin(false)}>Register</button>
+          </div>
+          {isLogin ? (
+            <Login props={props} />
+          ) : (
+            <Register props={props} />
+          )}
+          <span className='form__text'> Or login with : </span>
+          <GoogleLogin
             className='btn btn--google'
             clientId='8044367583-c6hmj7bnu6hui01g1fkgeehdbfpn4pr2.apps.googleusercontent.com'
             buttonText='Google Login'
@@ -63,18 +63,18 @@ const TestScreen = (props) => {
             onFailure={googleError}
             cookiePolicy="single_host_origin"
           ></GoogleLogin>
-          </div>
-          <div className='advantages-account'>
-            <h2 className='heading'>Advantages of becoming a member</h2>
-            <p className='advantages-account__text'><strong> Plus Market </strong> buyer protection has you covered from click to delivery.</p>
-            <p>Sign up or sign in and you will be able to :</p>
-            <div className='advantages-account__container'>
+        </div>
+        <div className='advantages-account'>
+          <h2 className='heading'>Advantages of becoming a member</h2>
+          <p className='advantages-account__text'><strong> Plus Market </strong> buyer protection has you covered from click to delivery.</p>
+          <p>Sign up or sign in and you will be able to :</p>
+          <div className='advantages-account__container'>
             <p className='advantages-account__desc'> <span className='advantages-account__icon'> <FaShuttleVan /> </span> Easily Track Orders, Hassle free Returns</p>
             <p className='advantages-account__desc'> <span className='advantages-account__icon'> <AiOutlineAlert /> </span> Get Relevant Alerts and Recommendation</p>
-            <p className='advantages-account__desc'> <span className='advantages-account__icon'> <AiFillStar/> </span> Whishlist, Reviews, Ratings and more.</p>
-            </div>
+            <p className='advantages-account__desc'> <span className='advantages-account__icon'> <AiFillStar /> </span> Whishlist, Reviews, Ratings and more.</p>
           </div>
-          </div>
+        </div>
+      </div>
     </section>
   )
 }

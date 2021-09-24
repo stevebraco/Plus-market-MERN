@@ -27,10 +27,10 @@ h2 {
   font-size: 3rem;
 }
 h3 {
-  font-size: 2.5rem;
+  font-size: 1.6rem;
 }
 h4 {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
 }
 h5 {
   font-size: 2rem;
@@ -65,11 +65,9 @@ section {
   input,
   textarea {
     font-family: $fonts;
-    border-radius: $borderRadius;
-    padding: 2rem 3rem;
-  border: 1px solid black;
-  outline: none;
-  background: #fafafa;
+    padding: 1.5rem 2rem;
+    border: 1px solid #ececec;
+    outline: none;
   }
   textarea {
     resize: none;
@@ -77,15 +75,15 @@ section {
   }
   
   label {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     padding-bottom: 0.5rem;
     text-transform: capitalize;
   }
 .container {
   max-width: 1280px;
-    margin: 0 auto;
-    padding-left: 40px;
-    padding-right: 40px;
+  margin: 0 auto;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .txt-cap{
@@ -306,18 +304,19 @@ button {
   right: 0;
   background: white;
   box-shadow: -10px 0 20px 0 lightgrey;
-  padding: 0 1rem 1rem;
+  padding: 2rem;
   opacity: 0;
   visibility: hidden;
   transition: 0.5s;
   width: 0%;
+  height: 73%;
   max-width: 0%;
   z-index: 1;
 }
 .cart-aside.active {
   transition: 0.5s;
-  max-width: 50%;
-  width: 50%;
+  max-width: 30%;
+  width: 30%;
   opacity: 1;
   visibility: visible;
 }
@@ -341,9 +340,16 @@ button {
   }
 }
 .cart {
+  display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+
+    &__wrapper {
+      gap: 5rem;
+    }
+
   &__container {
-    height: 20rem;
-    max-height: 20rem;
     padding: 0 0.2rem;
     display: flex;
     flex-wrap: wrap;
@@ -358,6 +364,11 @@ button {
     color: #ea5e4c;
     display: block;
     text-align: right;
+  }
+
+  &__checkout {
+    display: flex;
+    align-items: flex-end;
   }
 }
 //
@@ -374,6 +385,7 @@ button {
   }
 }
 
+
 .dp-flex {
   display: flex;
   // align-items: center;
@@ -381,8 +393,12 @@ button {
 }
 .just-center {
   justify-content: center;
-  gap: 5rem;
 }
+
+.col {
+  flex-direction: column;
+}
+
 
 .btn {
   display: inline-block;
@@ -606,7 +622,6 @@ button {
 #menu-bar {
   font-size: 3rem;
   border-radius: 0.5rem;
-  border: 0.1rem solid $black;
   padding: 0.8rem 1.5rem;
   color: $black;
   cursor: pointer;
@@ -958,6 +973,9 @@ button {
   text-transform: uppercase;
 }
 //form
+.container__formFlex {
+  gap: 5rem;
+}
 .container__form {
   max-width: 450px;
   display: flex;
@@ -971,6 +989,9 @@ button {
     padding-bottom: 2rem;
     border-bottom: 1px solid #a5a3a3;
   }
+}
+.container__form--ship {
+  background: #fff;
 }
 .form {
   padding-bottom: 2rem;
@@ -1165,19 +1186,70 @@ button {
   color: #ea5e4c;
 }
 
-//Shipping
-.order {
-  &__name, &__address, &__postalCode, &__city, &__country {
-    padding-bottom: 1rem;
-  }
-  &__shipping {
-    flex: 2 1 50rem;
-  }
-  &__summary {
-    flex: 2 2 25rem;
-
-  }
+//Payment 
+.payment {
+  margin-top: 2rem;
+  width: 400px;
+  padding: 2rem 2rem;
+  background: #f7f7f7;
 }
+
+//Shipping
+.orderShip__container {
+  gap: 5rem;
+  align-items: flex-start;
+}
+.order {
+  width: 400px;
+  padding: 2rem 2rem;
+  background: #f7f7f7;
+  
+  &__container {
+    border: 1px solid #ececec;
+  }
+
+  &__item {
+    background: #fff;
+    padding: 2rem;
+    border-bottom: 1px solid #ececec;
+  }
+
+  &__name {
+    text-transform: capitalize;
+    color: #666;
+    font-weight: 300;
+    font-size: 1.3rem;
+  }
+  
+  &__qty {
+    margin-left: .5rem;
+    font-size: 1.2rem;
+  }
+
+  &__prices {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem 1rem;
+  }
+
+  &__bigPrice {
+    color: #a5a3a3;
+  }
+  // &__name, &__address, &__postalCode, &__city, &__country {
+    //   padding-bottom: 1rem;
+    // }
+    // &__shipping {
+      //   flex: 2 1 50rem;
+      // }
+      // &__summary {
+        //   flex: 2 2 25rem;
+        
+        // }
+      }
+      .order__item:last-of-type {
+        border-bottom: none;    
+      }
 
 // Media Queries HEADER
 @import "./mediaqueries.scss";

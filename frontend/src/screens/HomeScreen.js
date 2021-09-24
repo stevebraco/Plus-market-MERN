@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { bestSellerProducts, lastProducts } from "../actions/productActions";
+import { bestSellerProducts, lastProducts, listProducts } from "../actions/productActions";
 import Banner from "../components/Banner";
 import BoxCategory from "../components/BoxCategory";
 import Product from "../components/Product";
@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import FadeIn from 'react-fade-in';
+import { settings } from '../helpers/settingsSlider' 
 
 import {
   addToCart,
@@ -28,12 +29,12 @@ const HomeScreen = () => {
   const [favorites, setFavorites] = useState([]);
   
   const dispatch = useDispatch();
-  const productBestSeller = useSelector((state) => state.productBestSeller);
-  const {
-    loading: loadingBestSeller,
-    products: productsBestSeller,
-    error: errorBestSeller,
-  } = productBestSeller;
+  // const productBestSeller = useSelector((state) => state.productBestSeller);
+  // const {
+  //   loading: loadingBestSeller,
+  //   products: productsBestSeller,
+  //   error: errorBestSeller,
+  // } = productBestSeller;
 
   //SELECTOR
   const cartToggle = useSelector((state) => state.cartToggle);
@@ -42,12 +43,26 @@ const HomeScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  const productLast = useSelector((state) => state.productLast);
+  const productList = useSelector((state) => state.productList);
   const {
-    loading: loadingLast,
-    products: productsLast,
-    error: errorLast,
-  } = productLast;
+    loading: loadingList,
+    products,
+    error: errorList,
+  } = productList;
+
+  const BestProducts = products?.sort((a , b) => b.rating - a.rating)
+
+
+  // const productLast = useSelector((state) => state.productLast);
+  // const {
+  //   loading: loadingLast,
+  //   products: productsLast,
+  //   error: errorLast,
+  // } = productLast;
+
+
+  
+
 
   const blogList = useSelector((state) => state.blogList);
   const { loading: loadingBlogs, error: errorBlogs, blogs } = blogList;
@@ -65,48 +80,13 @@ const HomeScreen = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(listProducts())
     dispatch(lastProducts());
     dispatch(bestSellerProducts());
     dispatch(listBlogs());
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [dispatch, favorites]);
-
- 
- 
-
-  let settings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: false
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
-
+    
   const addToCartHandler = (item) => {
     const qty = 1;
     dispatch(addToCart(item, qty));
@@ -196,7 +176,7 @@ const HomeScreen = () => {
           </div>
         </section>
 
-        <section className="product container">
+        {/* <section className="product container">
           <h2 className="heading">
             latest products
           </h2>
@@ -211,25 +191,42 @@ const HomeScreen = () => {
               ))}
             </div>
           )}
+        </section> */}
+
+        <section className="product container">
+          <h2 className="heading">
+            latest products
+          </h2>
+          {loadingList ? (
+            <LoadingBox></LoadingBox>
+          ) : errorList ? (
+            <p>{errorList}</p>
+          ) : (
+            <div className="box-container">
+              {products.slice(0,5).map((item) => (
+                <Product key={item._id} item={item} addToCartHandler={addToCartHandler} />
+              ))}
+            </div>
+          )}
         </section>
 
         <section className="product container">
           <h2 className="heading">
             best products
           </h2>
-          {loadingBestSeller ? (
+          {loadingList ? (
             <LoadingBox></LoadingBox>
-          ) : errorBestSeller ? (
-            <p>{errorBestSeller}</p>
-          ) : (
+          ) : errorList ? (
+            <p>{errorList}</p>
+          ) :  (
             <div>
               <Slider {...settings}>
-                {productsBestSeller.map((item) => (
+                {BestProducts.map((item) => (
                   <Product key={item._id} item={item} addToCartHandler={addToCartHandler} />
                 ))}
               </Slider>
             </div>
-          )}
+          ) }
         </section>
         <section className='blog'>
           <div className="container">

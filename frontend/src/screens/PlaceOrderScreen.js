@@ -1,14 +1,19 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import CheckoutSteps from '../components/CheckoutSteps'
+import Order from '../components/Order'
 
 const PlaceOrderScreen = (props) => {
     const payment = props.match.params.payment
+    const storePayment = JSON.parse(localStorage.getItem('shippingAddress')).paymentMethod
+    console.log(payment, storePayment);
+
+   
 
     const cart = useSelector(state => state.cart)
     const {paymentMethod, shippingAddress, cartItems, totalPrice} = cart
-    if(!paymentMethod) {
-        props.history.push('/payment')
+    if(storePayment !== payment) {
+        props.history.push('/shipping')
     }
     const toPrice = (num) => Number(num.toFixed(2));
     cart.itemsPrice = toPrice( cartItems.reduce((a, c) => a + c.quantity * c.price, 0) )
@@ -21,7 +26,7 @@ const PlaceOrderScreen = (props) => {
    
     return (
         <>
-      <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
+      <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <div className='container dp-flex'> 
       <div className='order__shipping'>
       <div>
@@ -35,32 +40,10 @@ const PlaceOrderScreen = (props) => {
       </div>
       <div>
       <h2 className="heading">Payment</h2>
-      <p className='order__method'> <strong>Method: </strong> {cart.paymentMethod} </p>
+      <p className='order__method'> <strong>Method: </strong> {cart.paymentMethod || payment} </p>
       </div>
       </div>
-      <div className='order__summary'>
-      <h2 className="heading">Order Summary</h2>
-
-          {
-              cartItems.map((item) => (
-                  <div className='dp-flex'>
-                      <div className='dp-flex'>
-                      <img className='img__small' src={item.image} alt="" srcset="" />
-                      <div>
-                <p className='cart-item__name'> {item.name} </p>
-                <strong className='cart-item__price'>${item.price.toFixed(2)}</strong>
-                </div>
-                </div>
-                <span className='cart-item__qty'> {item.quantity} </span>
-                  </div>
-              ))
-          }
-
-          <p> Price <strong> {totalPrice.toFixed(2)}</strong> </p>
-          <p> Shipping <strong> {cart.shippingPrice} </strong> </p>
-          <p> Tax Price <strong> {cart.taxPrice} </strong> </p>
-     <p> Total Price <strong> {cart.bigPrice.toFixed(2)} </strong> </p>     
-      </div>
+      <Order />
       </div>
 
         </>
