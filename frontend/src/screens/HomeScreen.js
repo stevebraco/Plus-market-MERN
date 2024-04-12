@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import FadeIn from 'react-fade-in';
-import { settings } from '../helpers/settingsSlider' 
+import { settings } from '../helpers/settingsSlider'
 
 import {
   addToCart,
@@ -27,7 +27,7 @@ import BlogCardScreen from "./BlogCardScreen";
 
 const HomeScreen = () => {
   const [favorites, setFavorites] = useState([]);
-  
+
   const dispatch = useDispatch();
   // const productBestSeller = useSelector((state) => state.productBestSeller);
   // const {
@@ -50,7 +50,7 @@ const HomeScreen = () => {
     error: errorList,
   } = productList;
 
-  const BestProducts = products?.sort((a , b) => b.rating - a.rating)
+  const BestProducts = products?.sort((a, b) => b.rating - a.rating)
 
 
   // const productLast = useSelector((state) => state.productLast);
@@ -61,7 +61,7 @@ const HomeScreen = () => {
   // } = productLast;
 
 
-  
+
 
 
   const blogList = useSelector((state) => state.blogList);
@@ -72,7 +72,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const store = JSON.parse(localStorage.getItem("favorites"))
-    if(store) {
+    if (store) {
       setFavorites(store)
     } else {
       setFavorites([])
@@ -86,7 +86,7 @@ const HomeScreen = () => {
     dispatch(listBlogs());
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [dispatch, favorites]);
-    
+
   const addToCartHandler = (item) => {
     const qty = 1;
     dispatch(addToCart(item, qty));
@@ -120,30 +120,30 @@ const HomeScreen = () => {
 
   return (
     <FadeIn>
-        <section className="home container">
-          <div className="home__container">
-             <img className="home__img" src="./images/homepage.jpeg" alt="légume"/>
-            <div className="home__content">
-              <h3 className="home__heading">
-                active summer with juice milk 300ml
-              </h3>
-              <span className="home__fresh">
-                new arrivals with nature fruits, juice milks, essential for
-                summer
-              </span>
-              <Link to="/" className="btn btn--black">
-                shop now
-              </Link>
-            </div> 
+      <section className="home container">
+        <div className="home__container">
+          <img className="home__img" src="./images/homepage.jpeg" alt="légume" />
+          <div className="home__content">
+            <h3 className="home__heading">
+              active summer with juice milk 300ml
+            </h3>
+            <span className="home__fresh">
+              new arrivals with nature fruits, juice milks, essential for
+              summer
+            </span>
+            <Link to="/" className="btn btn--black">
+              shop now
+            </Link>
           </div>
-        </section>
-        <section className="banner-container container">
-          <Banner heading="special Offer" text={"upto 45% off"} ImgSrc={'./images/banner-3.jpeg'} />
-          <Banner heading="limited Offer" text={"upto 50% off"} ImgSrc={'./images/banner-4.jpeg'} />
-        </section>
+        </div>
+      </section>
+      <section className="banner-container container">
+        <Banner heading="special Offer" text={"upto 45% off"} ImgSrc={'./images/banner-3.jpeg'} />
+        <Banner heading="limited Offer" text={"upto 50% off"} ImgSrc={'./images/banner-4.jpeg'} />
+      </section>
 
-        <section className="category">
-          <div className="container">
+      <section className="category">
+        <div className="container">
           <h2 className="heading">
             shop by category
           </h2>
@@ -173,10 +173,10 @@ const HomeScreen = () => {
               numberImg={6}
             />
           </div>
-          </div>
-        </section>
+        </div>
+      </section>
 
-        {/* <section className="product container">
+      {/* <section className="product container">
           <h2 className="heading">
             latest products
           </h2>
@@ -193,63 +193,63 @@ const HomeScreen = () => {
           )}
         </section> */}
 
-        <section className="product container">
-          <h2 className="heading">
-            latest products
-          </h2>
-          {loadingList ? (
-            <LoadingBox></LoadingBox>
-          ) : errorList ? (
-            <p>{errorList}</p>
-          ) : (
-            <div className="box-container">
-              {products.slice(0,5).map((item) => (
-                <Product key={item._id} item={item} addToCartHandler={addToCartHandler} />
-              ))}
-            </div>
-          )}
-        </section>
-
-        <section className="product container">
-          <h2 className="heading">
-            best products
-          </h2>
-          {loadingList ? (
-            <LoadingBox></LoadingBox>
-          ) : errorList ? (
-            <p>{errorList}</p>
-          ) :  (
-            <div>
-              <Slider {...settings}>
-                {BestProducts.map((item) => (
-                  <Product key={item._id} item={item} addToCartHandler={addToCartHandler} />
-                ))}
-              </Slider>
-            </div>
-          ) }
-        </section>
-        <section className='blog'>
-          <div className="container">
-          <h2>Blog & News</h2>
-        <div>
-        {loadingBlogs ? (
+      <section className="product container">
+        <h2 className="heading">
+          latest products
+        </h2>
+        {loadingList ? (
           <LoadingBox></LoadingBox>
-        ) : errorBlogs ? (
-          <p> {errorBlogs} </p>
+        ) : errorList ? (
+          <p>{errorList}</p>
         ) : (
-          <div className='blog__container dp-flex'>
-            {
-              blogs.slice(0,2).map((blog) => (
-                <BlogCardScreen key={blog._id} blog={blog} />
-              ))
-            }
+          <div className="box-container">
+            {products.slice(0, 5).map((item) => (
+              <Product key={item._id} item={item} addToCartHandler={addToCartHandler} />
+            ))}
           </div>
         )}
-      </div>
-      </div>
-        </section>
-      
-          </FadeIn>
+      </section>
+
+      <section className="product container">
+        <h2 className="heading">
+          best products
+        </h2>
+        {loadingList ? (
+          <LoadingBox></LoadingBox>
+        ) : errorList ? (
+          <p>{errorList}</p>
+        ) : (
+          <div>
+            <Slider {...settings}>
+              {BestProducts.map((item) => (
+                <Product key={item._id} item={item} addToCartHandler={addToCartHandler} />
+              ))}
+            </Slider>
+          </div>
+        )}
+      </section>
+      <section className='blog'>
+        <div className="container">
+          <h2>Blog & News</h2>
+          <div>
+            {loadingBlogs ? (
+              <LoadingBox></LoadingBox>
+            ) : errorBlogs ? (
+              <p> {errorBlogs} </p>
+            ) : (
+              <div className='blog__container dp-flex'>
+                {
+                  blogs.slice(0, 2).map((blog) => (
+                    <BlogCardScreen key={blog._id} blog={blog} />
+                  ))
+                }
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+    </FadeIn>
   );
 };
 
