@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 mongoose.connect(
   process.env.MONGO_DB,
   {
+    dbName: "plusmarket",
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
