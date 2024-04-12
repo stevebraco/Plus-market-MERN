@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import data from "./data.js";
 import path from "path";
 import dotenv from "dotenv";
+import cors from 'cors'
 
 import blogRouter from "./routers/blogRouter.js";
 import productRouter from "./routers/productRouter.js";
@@ -12,6 +13,7 @@ import userRouter from "./routers/userRouter.js";
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
